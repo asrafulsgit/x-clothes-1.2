@@ -4,7 +4,7 @@ import './Nav.css'
 
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCarts, setMessage, setSelectedCategory, setSecondaryNav } from '../../Authentication/Controllers/UserSlice'
+import { setCarts, setMessage, setSelectedCategory, setSecondaryNav, setFavourites } from '../../Authentication/Controllers/UserSlice'
 import MensNav from './MensNav'
 import WomensNav from './WomensNav'
 import KidsNav from './KidsNav'
@@ -13,7 +13,7 @@ const Nav = () => {
   const dispatch = useDispatch();
   const {secondaryNav} = useSelector(state => state.authInfo)
   const isLoggedIn = localStorage.getItem('isLoggedIn')
-  const {carts,userInfo} = useSelector(state => state.authInfo)
+  const {carts,favourites,userInfo} = useSelector(state => state.authInfo)
   // nav settings
   const [navbg, setNavbg]= useState(false)
 
@@ -34,11 +34,16 @@ const Nav = () => {
                 }).catch((err)=>{
                       dispatch(setMessage(err.response.data.message))
                 })
+                axios.post('http://localhost:8000/get-to-favourite', userId)
+                .then((res)=>{
+                     dispatch(setFavourites(res.data.produts))
+                }).catch((err)=>{
+                     dispatch(setMessage(err.response.data.message))
+                })
         }
   },[userInfo])
   
   const [hover,setHover] = useState('')
-  // const [secondaryNav,setSecondaryNav]= useState(false)
   const handleMouseHover =(hoverItem)=>{
     setHover(hoverItem)
     setNavbg(true)
@@ -100,7 +105,12 @@ const Nav = () => {
                       <i className="fa-solid fa-cart-shopping"></i>
                       {isLoggedIn && <p className='total-carts-number'>{carts.length}</p>}
                     </button></NavLink>
-                  <NavLink to='/favourite' ><button className='nav-item'><i className="fa-regular fa-heart"></i></button></NavLink>
+                  <NavLink to='/favourite' >
+                    <button className='nav-item cart-section-btn'>
+                      <i className="fa-regular fa-heart"></i>
+                      {isLoggedIn && <p className='total-carts-number'>{favourites.length}</p>}
+                    </button>
+                  </NavLink>
                   
                   {isLoggedIn ? 
                   <NavLink to='/profile'>

@@ -11,6 +11,7 @@ const userSlice = createSlice({
           message : '',
           isLoading : true,
           carts : [],
+          favourites :[],
           selectedCategory : '',
           secondaryNav : false
      },
@@ -30,6 +31,9 @@ const userSlice = createSlice({
           setCarts (state,action){
                state.carts =  action.payload;
           },
+          setFavourites (state,action){
+               state.favourites = action.payload
+          },
           setMessage (state,action){
                state.message = action.payload;
           },
@@ -45,5 +49,5 @@ const userSlice = createSlice({
      }
 })
 
-export const {setUserInfo,isEmail,setEmail,isVerify,setMessage,setCarts,setSecondaryNav,setSelectedCategory} = userSlice.actions;
+export const {setUserInfo,isEmail,setEmail,isVerify,setMessage,setCarts,setFavourites,setSecondaryNav,setSelectedCategory} = userSlice.actions;
 export default userSlice.reducer;

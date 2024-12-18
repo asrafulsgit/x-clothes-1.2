@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from "react";
 
 // magnifier
 import ReactImageMagnify from "react-image-magnify";
+import ImageMagnify from "./ImageMagnify";
 
 import "./Productinfo.css";
 import axios from "axios";
@@ -10,7 +11,6 @@ import { useParams } from "react-router-dom";
 
 import Nav from "../../App/Nav/Nav";
 import Footer from "../../App/Footer/Footer";
-import OutlateProduct from "../../App/Outlate/OutlateProduct";
 
 const Productinfo = React.memo(() => {
   const { id } = useParams();
@@ -69,20 +69,18 @@ const Productinfo = React.memo(() => {
                 })}
               </div>
               <div className="thumb-image">
-                <ReactImageMagnify
-                  {...{
-                    smallImage: {
-                      alt: "Wristwatch by Ted Baker London",
-                      isFluidWidth: true,
-                      src: thumbImage,
-                    },
-                    largeImage: {
-                      src: thumbImage,
-                      width: 1800,
-                      height: 2167,
-                    },
-                  }} 
-                />
+              <ImageMagnify
+                  smallImage={{
+                    alt: "Wristwatch by Ted Baker London",
+                    isFluidWidth: true,
+                    src: thumbImage,
+                  }}
+                  largeImage={{
+                    src: thumbImage,
+                    width: 1800,
+                    height: 2167,
+                  }}
+              />
               </div>
             </div>
             <div className="info-right">

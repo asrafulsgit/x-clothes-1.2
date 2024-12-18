@@ -37,9 +37,9 @@ const getUserCarts = async(req,res)=>{
      try {
           const {userId}= req.body;
           const isUser = await User.findById(userId)
-          // if(!isUser){
-          //      res.status(404).send({message : 'User is not found!'})
-          // }
+          if(!isUser){
+               res.status(404).send({message : 'User is not found!'})
+          }
           const cartProducts = await addToCartModel.find({userId})
           if(!cartProducts || cartProducts.length <= 0){
                res.status(404).send({message : 'You have no cart!'})

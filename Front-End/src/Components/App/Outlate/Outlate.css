@@ -54,6 +54,36 @@
                 -1px 0 2px rgba(0, 0, 0, 0.173),
                 0 -1px 2px rgba(0, 0, 0, 0.173);
      /* border-radius: 5px; */
+     position: relative;
+}
+.outlate-card:hover .add-to-favourite-btn{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.outlate-card-image .add-to-favourite-btn{
+     position:absolute;
+     right: 10px;
+     top: 10px;
+     border: 1px solid black;
+     border-radius: 50%;
+     padding: 2px 3px 2px 2px;
+     display: none;
+     outline: none;
+     cursor: pointer;
+     animation: favouritebtn 0.2s ease;
+}
+@keyframes favouritebtn {
+     0%{
+          right: 0px;
+     }
+     100%{
+          right: 10px;
+     }
+}
+.add-to-favourite-btn i{
+     font-size: 1rem;
 }
 .outlate-card-image .image{
      width: 100%;

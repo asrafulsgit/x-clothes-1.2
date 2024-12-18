@@ -45,14 +45,12 @@ const newProduct = async (req, res) => {
          description,
        });
        await newProduct.save();
-       console.log(images)
        res.status(201).send({
          success: true,
          message: 'Product is added',
          product: newProduct,
        });
      } catch (error) {
-       console.error(error);
        res.status(500).send({
          message: 'Something broke!',
        });
@@ -149,7 +147,6 @@ const getProductByCategories = async(req,res)=>{
           const {categories} = req.body;
           const convertCategories = categories.map(item => Number(item))
           const products = await Product.find({'category' : {$in : convertCategories}})
-          console.log(products)
           if(products.length > 0){
                res.status(200).send({products : products})
           }else{
