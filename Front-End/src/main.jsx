@@ -38,6 +38,9 @@ import EmailVerification from './Components/Authentication/ForgotPassword/EmailV
 import GetCarts from './Components/Others/GetCarts.jsx'
 import Winter from './Components/Products/Winter/Winter.jsx'
 import UpdateProduct from './Components/Admin/Update-product/UpdateProduct.jsx'
+import TermsCondition from './Components/Others/TermsCondition/TermsCondition.jsx'
+import PrivacyPolicy from './Components/Others/PrivecyPolicy/PrivacyPolicy.jsx'
+import FAQ from './Components/Others/FAQ/FAQ.jsx'
 
 
 
@@ -93,6 +96,9 @@ createRoot(document.getElementById('root')).render(
           // Others Route
           <Route path='/aboutus' element={<AboutUs />} />
           <Route path='/return-policy' element={<ReturnPolicy />} />
+          <Route path='/terms-and-conditions' element={<TermsCondition />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/faq' element={<FAQ />} />
 
         </Route>
       </Routes>

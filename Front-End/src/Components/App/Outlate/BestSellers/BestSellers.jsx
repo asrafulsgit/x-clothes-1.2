@@ -7,19 +7,18 @@ import OutlateProduct from '../OutlateProduct'
 
 
 const BestSellers = () => {
-     
      const [message, setMessage]= useState('')
      const [bestSellers,setBestSellers]= useState([])
      useEffect(()=>{
           axios.post('http://localhost:8000/get-product-by-categoris',{categories : ['120130','230240','330340','420440']})
           .then((res)=>{
-               setBestSellers(res.data.products)
+               const products = res.data.products.slice(0,6)
+               setBestSellers(products)
           }).catch((err)=>{
-               console.log(err)
-          //   dispatch(setMessage(err.response.data.message))
+               dispatch(setMessage(err.response.data.message))
           })
      },[])
-  return (
+     return (
      <>
      <div className="best-seller-page">
           <div className="out-late-item-header">

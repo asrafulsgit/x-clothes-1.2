@@ -39,7 +39,10 @@ const Login = () => {
                     setErrorField(err.response.data.field)
                })  
      }
-
+     const handlePassword=(e)=>{
+          e.preventDefault()
+          setSeePassword(!seePassword)
+     }
   return (
      <>
      <Nav />
@@ -56,12 +59,10 @@ const Login = () => {
                <div className='password-field'>
                     <input type={seePassword ? 'text' : 'password'} id='password' name='password'
                     onChange={handleChange} required />
-                    <button type='button' onClick={(e)=>{
-                         e.preventDefault()
-                         setSeePassword(!seePassword)
-                         }} className='seePassword-btn'>
-                         <i className={`fa-solid ${seePassword ? 'fa-eye-slash': 'fa-eye'}` }></i>
-                    </button>
+                    {user.password.length > 0 && 
+                    <button type='button' onClick={handlePassword} className='seePassword-btn'>
+                         <i className={`fa-solid fa-eye${seePassword ? '-slash': ''}`}></i>
+                    </button>}
                </div>
                <p className='message'>{errorField === 'password' && message}</p>
           </div>

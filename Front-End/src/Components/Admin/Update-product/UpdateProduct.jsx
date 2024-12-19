@@ -21,6 +21,7 @@ const UpdateProduct = () => {
           colors : [],
           size : '',
           sizes  : [],
+          stock : '',
           category : '',
           subcategory : '',
           description : '',
@@ -31,7 +32,7 @@ const UpdateProduct = () => {
      useEffect(()=>{
           axios.post('http://localhost:8000/get-one-product',{id})
           .then((res)=>{
-                     const {brand,title,price,sizes,colors,description,category,subcategory}= res.data.product;
+                     const {brand,title,price,sizes,colors,description,stock,category,subcategory}= res.data.product;
                      setProduct((prevState)=>({
                               ...prevState,
                               brand,
@@ -39,6 +40,7 @@ const UpdateProduct = () => {
                               price,
                               sizes,
                               colors,
+                              stock,
                               description,
                               category,
                               subcategory
@@ -150,7 +152,15 @@ const UpdateProduct = () => {
                                   </div>
                              </div>
                              <div className='form-riht-items'>
-                                  <div className='form-item'>
+                                   <div className='form-item'>
+                                            <label htmlFor="stock">Product Stock</label>
+                                            <input type="text" 
+                                            name='stock' 
+                                            onChange={handleChange} 
+                                            value={product.stock}
+                                            id='stock' required/>
+                                   </div>
+                                   <div className='form-item'>
                                        <label htmlFor="color">Product Color</label>
                                        <input type="text" name='color' value={product.color} onChange={handleChange}  id='color'/>
                                        <div className='showColors'>{

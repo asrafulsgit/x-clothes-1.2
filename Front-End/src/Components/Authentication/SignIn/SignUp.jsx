@@ -67,7 +67,7 @@ const SignUp = () => {
                                    e.preventDefault()
                                    setSeePassword(!seePassword)
                                    }} className='seePassword-btn'>
-                                   <i className={`fa-solid ${seePassword ? 'fa-eye-slash': 'fa-eye'}` }></i>
+                                   <i className={`fa-solid fa-eye${seePassword ? '-slash': ''}` }></i>
                               </button>}
                          </div>
                          <p className='message'>{errorField === 'password' && message}</p>

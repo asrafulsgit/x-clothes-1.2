@@ -16,6 +16,7 @@ const AddProduct = () => {
           colors : [],
           size : '',
           sizes  : [],
+          stock : '',
           category : '',
           subcategory : '',
           description : '',
@@ -170,6 +171,14 @@ const AddProduct = () => {
                               </div>
                          </div>
                          <div className='form-riht-items'>
+                              <div className='form-item'>
+                                        <label htmlFor="stock">Product Stock</label>
+                                        <input type="text" 
+                                        name='stock' 
+                                        onChange={handleChange} 
+                                        value={newProduct.stock}
+                                        id='stock' required/>
+                              </div>
                               <div className='form-item'>
                                    <label htmlFor="color">Product Color</label>
                                    <input type="text" name='color' value={newProduct.color} onChange={handleChange}  id='color'/>

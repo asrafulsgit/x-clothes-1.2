@@ -93,7 +93,7 @@ const findUserAndSendEmail =async(req,res)=>{
                res.status(404).send({ message : 'email is not found!'})
           }else{    
                const createVerificationCode = Math.floor((Math.random()+1)*100000)
-               console.log(createVerificationCode)
+               
                user.resetpasswordcode = createVerificationCode;
                user.resetpasswordexpiries = Date.now() + 60000  // 1min
                await user.save();

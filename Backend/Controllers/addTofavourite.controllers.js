@@ -55,7 +55,6 @@ const getFavouriteProducts =async(req,res)=>{
 
 const removeFavouriteItem =async(req,res)=>{
      const {userId,productId}= req.body;
-     console.log(req.body)
      try {
           const isFavouriteExist = await Favourite.deleteOne({$and : [{userId},{productId}]})
           if(!isFavouriteExist){

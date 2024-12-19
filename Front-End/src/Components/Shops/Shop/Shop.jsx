@@ -5,16 +5,32 @@ import './Shop.css'
 import Nav from '../../App/Nav/Nav'
 import Footer from '../../App/Footer/Footer'
 import OutlateProduct from '../../App/Outlate/OutlateProduct'
-// import AllProduct from '../../../allProductDetails/allProduct';
+import axios from 'axios';
+
 
 const Shop = () => {
-  console.log('hello')
-  const [data,setData]= useState()
+   const [products,setProducts]=useState([])
+   const [isLoading,setIsLoading]=useState(true)
+   useEffect(()=>{
+    axios.get('http://localhost:8000/admin/all-product')
+    .then((res)=>{
+      setProducts(res.data.products)
+      setIsLoading(false)
+    }).catch((err)=>{
+      setIsLoading(false)
+      alert(err.response.data.message)
+    })
+  },[])
+  if(isLoading){
+    return(
+      <p>Loading...</p>
+    )
+  }
   return (
     <>
       <Nav />
       <div className='shop'>
-          {data.map((item)=>{
+          {products.map((item)=>{
             return <OutlateProduct key={uuidv4()} item={item}/>
           })}
       </div>

@@ -19,21 +19,21 @@ const Footer = () => {
                   <h1>Mens</h1>
                   <div className="mens-links">
                     <Link to=''>Summer</Link>
-                    <Link to=''>Winter</Link>
+                    <Link to='/winter'>Winter</Link>
                   </div>
               </div>
               <div className="footer-womens">
                     <h1>Womens</h1>
                     <div className="mens-links">
                       <Link to=''>Summer</Link>
-                      <Link to=''>Winter</Link>
+                      <Link to='/winter'>Winter</Link>
                     </div>
               </div>
               <div className="footer-kids">
                     <h1>Kids</h1>
                     <div className="mens-links">
                       <Link to=''>Summer</Link>
-                      <Link to=''>Winter</Link>
+                      <Link to='/winter'>Winter</Link>
                     </div>
               </div>
           </div>

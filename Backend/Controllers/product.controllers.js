@@ -17,7 +17,7 @@ cloudinary.config({
 // only admin can access 
 const newProduct = async (req, res) => {
      try {
-       const { brand, title, price, sizes, colors, category,subcategory, description } = req.body;
+       const { brand, title, price, sizes, colors,stock, category,subcategory, description } = req.body;
 
        const images = await Promise.all(
           req.files.map((file) =>
@@ -40,6 +40,7 @@ const newProduct = async (req, res) => {
          price,
          sizes,
          colors,
+         stock : Number(stock),
          category: Number(category),
          subcategory: Number(subcategory),
          description,
