@@ -116,7 +116,6 @@ const findUserAndSendEmail =async(req,res)=>{
                     subject: 'Reset password',
                     text: `your reset password code is ${createVerificationCode}`
                   };
-                  
                 transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
                          console.log(error);
