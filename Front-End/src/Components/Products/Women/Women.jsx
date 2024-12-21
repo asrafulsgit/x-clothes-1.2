@@ -7,7 +7,7 @@ import './Women.css'
 import OutlateProduct from '../../App/Outlate/OutlateProduct';
 import Nav from '../../App/Nav/Nav';
 import Footer from '../../App/Footer/Footer';
-import womensBanner from '../../../assets/banners/womens-banner.jpg'
+import womensBanner from '../../../assets/banners/womens-banner.webp'
 import { useDispatch, useSelector } from 'react-redux';
 import { setMessage } from '../../Authentication/Controllers/UserSlice';
 

@@ -14,6 +14,9 @@ import OutLate from '../Outlate/OutLate'
 import Show from '../Show/Show'
 import BestSellers from '../Outlate/BestSellers/BestSellers'
 import Brands from '../Brands/Brands'
+import WomensLayout from '../LayOut/Womens-Layout/WomensLayout'
+import MenstLayout from '../LayOut/Mens-Layout/MensLayout'
+import KidsLayout from '../LayOut/Kids-Layout/KidsLayout'
 
 
 
@@ -27,11 +30,14 @@ const Home = () => {
           {/* <Brands /> */}
           <Show />
           <BestSellers />
-          <NewArrivals />
+          {/* <NewArrivals /> */}
         </div>
         <div className='main'>     
-            <OutLate />
-            <Banner />  
+            {/* <OutLate /> */}
+            {/* <Banner />   */}
+            <WomensLayout />
+            <MenstLayout />
+            <KidsLayout />
             <Contact /> 
         </div>
         <Footer />

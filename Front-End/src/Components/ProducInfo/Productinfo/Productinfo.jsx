@@ -96,7 +96,7 @@ const Productinfo = React.memo(() => {
                   <p>Quantity : </p>
                   <div className="quantity-field">
                     <button
-                      onClick={() => setQuantity((prev) => prev - 1)}
+                      onClick={() => setQuantity(quantity - 1)}
                       disabled={quantity === 1}
                       className="inc-dec-btn"
                     >
@@ -110,7 +110,7 @@ const Productinfo = React.memo(() => {
                       id="quantity"
                     />
                     <button
-                      onClick={() => setQuantity((prev) => prev + 1)}
+                      onClick={() => setQuantity(quantity + 1)}
                       className="inc-dec-btn"
                     >
                       +

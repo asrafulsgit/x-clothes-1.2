@@ -18,17 +18,20 @@
 .show-page div{
      width: 100%;
      height: 250px;
-     padding-left: 1rem;
-     padding-top: 6rem;
+     padding-top: 5rem;
+     position: relative;
+     overflow: hidden;
 }
 .show-page > div h2{
      font-family: var(--display-font-01);
      font-size: 3rem;
      color: var(--color-5);
+     padding-left: 1rem;
 }
 .show-page > div p{
      font-family: var(--font-family2);
      color: var(--color-4);
+     padding-left: 1rem;
 }
 .show-page .men-show{
      background-image: url('../../../assets/products-banner/men.jpg');
@@ -48,4 +51,33 @@
      background-position: center;
      background-repeat: no-repeat;
      background-size: cover;
+}
+
+.show-page .show-hover-btn{
+     position: absolute;
+     bottom: -35px;
+     width: 100%;
+     transition: 0.2s;
+}
+.show-page .mens-hover,
+.show-page .womens-hover,
+.show-page .kids-hover{
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+}
+
+.show-page .show-hover-btn button{
+     width: 100%;
+     padding: 0.2rem;
+     border: none;
+     font-family:var(--font-family2);
+     font-size: 1rem;
+     font-weight: 500;
+     cursor: pointer;
+}
+.show-page .show-hover-btn button:hover{
+     background-color: black;
+     color: white;
+     bottom: 0;
 }

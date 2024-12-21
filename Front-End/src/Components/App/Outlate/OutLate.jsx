@@ -10,9 +10,9 @@ const OutLate = () => {
   return (
     <div className='out-late'>
       {/* <BestSellers /> */}
-      <MensOutLate />
-      <WomensOutLate />
-      <KidsOutLate />
+      {/* <MensOutLate /> */}
+      {/* <WomensOutLate /> */}
+      {/* <KidsOutLate /> */}
     </div>
   )
 }
