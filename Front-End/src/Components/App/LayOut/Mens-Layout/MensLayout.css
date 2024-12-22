@@ -89,3 +89,27 @@
 .mens-layout-page .image-btn:hover i{
      color: white;
 }
+
+/* animation */
+.mens-layout-page .left-layout, 
+.mens-layout-page .right-layout {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mens-layout-page .left-layout.entering,
+.mens-layout-page .right-layout.entering {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.mens-layout-page .left-layout.exiting,
+.mens-layout-page .right-layout.exiting {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.mens-layout-page .left-layout.active,
+.mens-layout-page .right-layout.active {
+  opacity: 1;
+  transform: translateY(0);
+}
