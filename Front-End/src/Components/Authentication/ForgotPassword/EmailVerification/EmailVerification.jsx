@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import './EmailVerification.css'
 
+import Nav from '../../../App/Nav/Nav'
+import Footer from '../../../App/Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import {isVerify } from '../../Controllers/UserSlice'
 import { useNavigate } from 'react-router-dom'
@@ -48,14 +50,16 @@ const EmailVerification = () => {
      
      
   return (
-    <div>
+    <div className='email-verification-page'>
+          <Nav />
           <div className='email-verification-section'>
-           <p>Check Your {setEmail} email and enter verification Code with in 
-               {}s </p>
+               <div className="varification-title">
+                    <p>Check Your {setEmail} email  and <br />enter verification Code with in 1 minute</p>
+               </div>
                <form onSubmit={handleSubmit}>
                     <div className='email-verficaton-code'>
-                         <label htmlFor="number">Verificaton</label>
-                         <input type="number" name="code" 
+                         <label htmlFor="number">Verification Code</label>
+                         <input type="number" name="code"  
                          id="number" onChange={handleChange} required/>
                          <p className='message'>{message}</p>
                     </div>
@@ -65,6 +69,7 @@ const EmailVerification = () => {
                     </div>
                </form>
           </div>
+          <Footer />
     </div>
   )
 }

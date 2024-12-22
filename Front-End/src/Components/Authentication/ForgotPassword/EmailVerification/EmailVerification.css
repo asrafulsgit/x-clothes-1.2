@@ -6,12 +6,18 @@
      --font-family-AfacadFlux:"Afacad Flux", sans-serif;
      --font-family-Poppins :"Poppins", sans-serif;
    }
-.email-verification-section{
-     height: 65vh;
+.email-verification-page .email-verification-section{
+     height: 85vh;
      width: 100%;
      display: flex;
      justify-content: center;
      align-items: center;
+     flex-direction: column;
+     gap: 1.5rem;
+}
+.email-verification-section .varification-title p{
+     font-family: var(--font-family-Poppins);
+     text-align: center;
 }
 .email-verification-section form{
      display: flex;
