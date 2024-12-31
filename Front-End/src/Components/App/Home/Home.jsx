@@ -30,7 +30,6 @@ const Home = () => {
           {/* <Brands /> */}
           <Show />
           <BestSellers />
-          {/* <NewArrivals /> */}
         </div>
         <div className='main'>     
             {/* <OutLate /> */}
@@ -38,6 +37,7 @@ const Home = () => {
             <WomensLayout />
             <MenstLayout />
             <KidsLayout />
+            <NewArrivals />
             <Contact /> 
         </div>
         <Footer />

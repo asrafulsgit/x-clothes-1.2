@@ -12,11 +12,12 @@
 }
 
 .new-arrivals-section{
-     margin: 2rem 0;
-     padding: 0 4rem;
+     margin: 4rem 0;
+     /* padding: 0 4rem; */
      width: 100%;
 }
 .new-arrivals{
+     border-radius: 30px;
      background-image: url('../../../assets//newArrivals/new-arrivals-01.jpg');
      background-position: center;
      background-size:cover;

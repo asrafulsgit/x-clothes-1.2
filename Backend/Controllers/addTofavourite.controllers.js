@@ -30,7 +30,8 @@ const addToFavourite = async(req,res)=>{
      }
 }
 const getFavouriteProducts =async(req,res)=>{
-     const {userId}= req.body;
+     const {id}= req.userInfo;
+     const userId = id;
      try {
           const userExist = await User.findById(userId)
           if(!userExist){

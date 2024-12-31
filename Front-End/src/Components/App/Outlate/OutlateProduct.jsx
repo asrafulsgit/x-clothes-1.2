@@ -72,8 +72,9 @@ const OutlateProduct = ({item}) => {
                }
           }
           setTimeout(() => {
-               const userId ={userId : userInfo.id}
-               axios.post('http://localhost:8000/get-to-favourite', userId)
+               axios.get('http://localhost:8000/get-to-favourite',{headers : {
+                    'authorization' : localStorage.getItem('token')
+                }})
                .then((res)=>{
                     dispatch(setFavourites(res.data.produts))
                }).catch((err)=>{

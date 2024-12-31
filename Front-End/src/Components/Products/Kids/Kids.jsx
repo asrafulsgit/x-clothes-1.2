@@ -13,7 +13,7 @@ import { setMessage } from '../../Authentication/Controllers/UserSlice';
 
 const Kids = () => {
   const dispatch = useDispatch()
-  const {message,selectedCategory} =useSelector(state => state.authInfo)
+  const {message,selectedCategory} =useSelector(state => state.authInfo || 301 )
   const [kidsData,setKidsData]= useState([])
   useEffect(()=>{
     if(selectedCategory.length > 0){

@@ -2,7 +2,7 @@ const express = require('express');
 
 const userRouter  = express.Router();
 
-const userAuthentication = require('../Middlewares/user.middleware');
+const userAuthentication = require('../Middlewares/userAuth-middleware');
 const {userRegister, userLogin, userProfile, resetPassword, EmailVerification, findUserAndSendEmail} = require('../Controllers/user.controllers');
 
 

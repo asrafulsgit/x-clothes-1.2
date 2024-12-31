@@ -18,7 +18,9 @@ const Profile = () => {
     <div className='profile-page'>
       <Nav />
       <div className="main-profile-section">
-        <h1 className='profile-title'>Profile</h1>
+        <div className="profile-header">
+          <h1 className='profile-title'>Profile</h1>
+        </div>
         <div className="user-info-div">
           <p className='user-name'>
            User Name : {userInfo && userInfo.name}

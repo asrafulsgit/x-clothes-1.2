@@ -5,9 +5,6 @@ const upload = require('../Middlewares/product.middleware');
 const {newProduct,getAllProduct, deleteProduct, getProductByCategory, getOneProduct, getProductByCategories,updateProduct} = require('../Controllers/product.controllers');
 
 
-
-
-
 // add product for admin 
 productRouter.post('/admin/add-product',upload.array('images'), newProduct)
 

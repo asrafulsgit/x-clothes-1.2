@@ -34,15 +34,17 @@ const Nav = () => {
                 }).catch((err)=>{
                       dispatch(setMessage(err.response.data.message))
                 })
-                axios.post('http://localhost:8000/get-to-favourite', userId)
-                .then((res)=>{
-                     dispatch(setFavourites(res.data.produts))
-                }).catch((err)=>{
-                     dispatch(setMessage(err.response.data.message))
-                })
+
         }
+      axios.get('http://localhost:8000/get-to-favourite',{headers : {
+          'authorization' : localStorage.getItem('token')
+      }})
+      .then((res)=>{
+           dispatch(setFavourites(res.data.produts))
+      }).catch((err)=>{
+           dispatch(setMessage(err.response.data.message))
+      })
   },[userInfo])
-  
   const [hover,setHover] = useState('')
   const handleMouseHover =(hoverItem)=>{
     setHover(hoverItem)
