@@ -2,18 +2,20 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
+
 import {setCarts, setFavourites, setMessage } from '../../Authentication/Controllers/UserSlice';
 
 const OutlateProduct = ({item}) => {
-     const token = localStorage.getItem('token')
-     const navigate = useNavigate()
-     const {_id,brand,price,images} = item;
      const dispatch = useDispatch();
+     const navigate = useNavigate()
+     const token = localStorage.getItem('token')
+     const {_id,brand,price,images} = item;
      const {carts,userInfo} = useSelector((state)=> state.authInfo)
      const [isFavourite,setIsFavourite]=useState(false)
      const [isLoading,setIsLoading]=useState(true)
      const [isAdded,setIsAdded]= useState(false)
      const hanleAddToCart=(id)=>{
+          setIsAdded(true)
           const cartInfo = {
                productId : id,
                userId    : userInfo.id
@@ -30,16 +32,16 @@ const OutlateProduct = ({item}) => {
                          'authorization' : localStorage.getItem('token')
                      }})
                     .then((res)=>{
+                         setIsAdded(false)  
                          dispatch(setCarts(res.data.cartProducts))
                     }).catch((err)=>{
                          dispatch(setMessage(err.response.data.message))
                     })
-               }, 1000);
+               }, 200);
           }else{
                navigate('/login')
           }     
      }
-
      const handleFavourite=(id)=>{
           const cartInfo = {
                productId : id,
@@ -117,7 +119,13 @@ const OutlateProduct = ({item}) => {
                     <Link to={`/product/${_id}`} ><button className='outlate-buy-now-btn'>BUY NOW</button></Link>
                     <button onClick={()=>hanleAddToCart(_id)} 
                     className='outlate-add-to-cart-btn'>
-                         <i id='add-icon' className="fa-solid fa-plus"></i>
+                         {isAdded ? 
+                         <div class="loadingio-spinner-rolling-nq4q5u6dq7r">
+                              <div class="ldio-x2uulkbinbj">
+                                   <div></div>
+                              </div>
+                         </div>
+                         : <i id='add-icon' className="fa-solid fa-plus"></i> } 
                     </button>
                </div>
           </div>

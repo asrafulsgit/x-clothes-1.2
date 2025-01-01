@@ -140,10 +140,27 @@
 .outlate-card-btns .outlate-add-to-cart-btn i{
      color: var(--color-4);
 }
-/* .outlate-card-btns .outlate-add-to-cart-btn #spinner-icon{
-     border: 3px solid;
+
+
+
+/* loader */
+   .ldio-x2uulkbinbj {
+     padding: 0.2rem 0.35rem;
+   }
+   .ldio-x2uulkbinbj div {
+     animation: ldio-x2uulkbinbj 1s linear infinite;
+     box-sizing: content-box; 
+     position: absolute;
+     width:10px;
+     height: 10px;
+     border: 2px solid #e15b64;
+     border-top-color: transparent;
      border-radius: 50%;
-     padding:0.2rem 0.3rem;
-} */
+   }
+   @keyframes ldio-x2uulkbinbj {
+     0% { transform: translate(-50%,-50%) rotate(0deg); }
+     100% { transform: translate(-50%,-50%) rotate(360deg); }
+   }
+   
 
 
