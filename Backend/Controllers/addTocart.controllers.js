@@ -35,7 +35,8 @@ const addNewCart = async(req,res)=>{
 }
 const getUserCarts = async(req,res)=>{
      try {
-          const {userId}= req.body;
+          const {id}= req.userInfo;
+          const userId = id;
           const isUser = await User.findById(userId)
           if(!isUser){
                res.status(404).send({message : 'User is not found!'})
@@ -61,13 +62,9 @@ const getUserCarts = async(req,res)=>{
                })
           }
      } catch (error) {
-          res.status(500).send({message : 'somthing broke!'})
-          
-     }
-
-     
+          res.status(500).send({message : 'somthing broke!'})    
+     }   
 }
-
 
 const removeCartItem = async(req,res)=>{
      try {

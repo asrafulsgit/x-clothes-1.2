@@ -25,10 +25,12 @@ const Nav = () => {
   useEffect(()=>{
       window.addEventListener('scroll', ()=>{
         window.scrollY > 50 ? setNavbg(true) : setNavbg(false);
-      })   
-        const userId = {userId : userInfo.id}
+      })  
+      
         if(userInfo.id){
-                axios.post('http://localhost:8000/get-user-carts', userId)
+                axios.get('http://localhost:8000/get-user-carts',{headers : {
+                  'authorization' : localStorage.getItem('token')
+              }})
                 .then((res)=>{
                       dispatch(setCarts(res.data.cartProducts))
                 }).catch((err)=>{

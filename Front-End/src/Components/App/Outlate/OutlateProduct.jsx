@@ -12,7 +12,7 @@ const OutlateProduct = ({item}) => {
      const {carts,userInfo} = useSelector((state)=> state.authInfo)
      const [isFavourite,setIsFavourite]=useState(false)
      const [isLoading,setIsLoading]=useState(true)
-
+     const [isAdded,setIsAdded]= useState(false)
      const hanleAddToCart=(id)=>{
           const cartInfo = {
                productId : id,
@@ -26,20 +26,20 @@ const OutlateProduct = ({item}) => {
                     dispatch(setMessage(err.response.data.message))
                }) 
                setTimeout(() => {
-                    const userId ={userId : userInfo.id}
-                    axios.post('http://localhost:8000/get-user-carts', userId)
+                    axios.get('http://localhost:8000/get-user-carts', {headers : {
+                         'authorization' : localStorage.getItem('token')
+                     }})
                     .then((res)=>{
                          dispatch(setCarts(res.data.cartProducts))
                     }).catch((err)=>{
                          dispatch(setMessage(err.response.data.message))
                     })
-               }, 200);
+               }, 1000);
           }else{
                navigate('/login')
-          }
-
-          
+          }     
      }
+
      const handleFavourite=(id)=>{
           const cartInfo = {
                productId : id,
@@ -115,7 +115,10 @@ const OutlateProduct = ({item}) => {
                </div>
                <div className='outlate-card-btns'>
                     <Link to={`/product/${_id}`} ><button className='outlate-buy-now-btn'>BUY NOW</button></Link>
-                    <button onClick={()=>hanleAddToCart(_id)} className='outlate-add-to-cart-btn'><i className="fa-solid fa-plus"></i></button>
+                    <button onClick={()=>hanleAddToCart(_id)} 
+                    className='outlate-add-to-cart-btn'>
+                         <i id='add-icon' className="fa-solid fa-plus"></i>
+                    </button>
                </div>
           </div>
      </div>

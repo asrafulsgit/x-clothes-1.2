@@ -140,4 +140,10 @@
 .outlate-card-btns .outlate-add-to-cart-btn i{
      color: var(--color-4);
 }
+/* .outlate-card-btns .outlate-add-to-cart-btn #spinner-icon{
+     border: 3px solid;
+     border-radius: 50%;
+     padding:0.2rem 0.3rem;
+} */
+
 
