@@ -50,7 +50,7 @@
 }
 .display-image img{
      height: 95%;
-      animation: imageAnimation 1s ease-out; 
+     animation: imageAnimation 1s ease-out; 
 }
 @keyframes imageAnimation {
 from {

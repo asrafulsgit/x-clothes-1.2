@@ -34,10 +34,10 @@ const Home = () => {
         <div className='main'>     
             {/* <OutLate /> */}
             {/* <Banner />   */}
+            <NewArrivals />
             <WomensLayout />
             <MenstLayout />
             <KidsLayout />
-            <NewArrivals />
             <Contact /> 
         </div>
         <Footer />
