@@ -12,15 +12,16 @@ import { setMessage } from '../../Authentication/Controllers/UserSlice';
 
 const Winter = () => {
   const dispatch = useDispatch()
-  const {message,selectedCategory} =useSelector(state => state.authInfo)
+  const {selectedCategory} = useSelector(state => state.authInfo)
   const [winterData,setWinterData]= useState([])
+
   useEffect(()=>{
     if(selectedCategory.length > 0){
       axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : selectedCategory})
       .then((res)=>{
         setWinterData(res.data.products)
       }).catch((err)=>{
-        dispatch(setMessage(err.response.data.message))
+        console.log(err)
         setWinterData([])
       })
     }else{
@@ -41,7 +42,7 @@ const Winter = () => {
       </div>
       <div className="womens-section">
           <div className='womens-shop'>
-              {winterData.length == 0 ? <p>{message}</p>
+              {winterData.length == 0 ? <p>{''}</p>
                : winterData.map((item)=>{
                 return <OutlateProduct key={uuidv4()} item={item}/>
               })}

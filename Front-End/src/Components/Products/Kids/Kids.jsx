@@ -13,7 +13,7 @@ import { setMessage } from '../../Authentication/Controllers/UserSlice';
 
 const Kids = () => {
   const dispatch = useDispatch()
-  const {message,selectedCategory} =useSelector(state => state.authInfo || 301 )
+  const {selectedCategory} = useSelector(state => state.authInfo || 301 )
   const [kidsData,setKidsData]= useState([])
   useEffect(()=>{
     if(selectedCategory.length > 0){
@@ -30,10 +30,10 @@ const Kids = () => {
       .then((res)=>{
         setKidsData(res.data.products)
       }).catch((err)=>{
-        dispatch(setMessage(err.response.data.message))
+        console.log(err)
       })
     }
-  },[selectedCategory])
+  },[])
 
 
   return (
@@ -45,7 +45,7 @@ const Kids = () => {
       
       <div className="kids-section">
         <div className='kids-shop'>
-            {kidsData.length <= 0 ? <p>{message}</p> 
+            {kidsData.length <= 0 ? <p>{''}</p> 
             : kidsData.map((item)=>{
               return <OutlateProduct key={uuidv4()} item={item}/>
             })}

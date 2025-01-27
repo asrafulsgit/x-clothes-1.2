@@ -3,13 +3,15 @@ const express = require('express');
 const userRouter  = express.Router();
 
 const userAuthentication = require('../Middlewares/userAuth-middleware');
-const {userRegister, userLogin, userProfile, resetPassword, EmailVerification, findUserAndSendEmail} = require('../Controllers/user.controllers');
+const {userRegister, userLogin, userProfile, resetPassword, EmailVerification, findUserAndSendEmail, tokenRefresh} = require('../Controllers/user.controllers');
 
 
 
 
 userRouter.post('/register', userRegister)
 userRouter.post('/login', userLogin)
+userRouter.get('/access/token/refresh',tokenRefresh)
+
 // user profile
 userRouter.get('/user-profile',userAuthentication, userProfile)
 

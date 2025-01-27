@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
           type : String,
           required : [true, 'password is required!']
      },
+     refreshtoken : String,
      resetpasswordcode : String,
      resetpasswordexpiries : Date
 },{timestamps : true})

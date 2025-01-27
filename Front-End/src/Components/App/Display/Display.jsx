@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-
-
 import './Display.css';
 import displayImage3 from '../../../assets/display/display-07.png'
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 const Display=()=> {
+  useEffect(()=>{
+    axios.get('http://localhost:8000/access/token/refresh',{
+      withCredentials : true
+    }).then((res)=>{
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
   return (
     <>  
       <div className='display'>      

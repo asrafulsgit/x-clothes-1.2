@@ -27,7 +27,9 @@ const Login = () => {
      const handleSubmit =(e)=>{
           e.preventDefault();
           // login 
-               axios.post('http://localhost:8000/login',user)
+               axios.post('http://localhost:8000/login',user,{
+                    withCredentials : true
+               })
                .then((res)=>{
                     localStorage.setItem('token',res.data)
                     localStorage.setItem('isLoggedIn',true)

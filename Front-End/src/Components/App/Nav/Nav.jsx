@@ -12,41 +12,22 @@ import WinterNav from './WinterNav'
 const Nav = () => {
   const dispatch = useDispatch();
   const {secondaryNav} = useSelector(state => state.authInfo)
-  const isLoggedIn = localStorage.getItem('isLoggedIn')
-  const {carts,favourites,userInfo} = useSelector(state => state.authInfo)
+  
   // nav settings
   const [navbg, setNavbg]= useState(false)
-
-  // const [menu, setMenu]= useState(false)
-  // const closeMenu =(closeMenu)=>{
-  //     setMenu(closeMenu)
-  // }
 
   useEffect(()=>{
       window.addEventListener('scroll', ()=>{
         window.scrollY > 50 ? setNavbg(true) : setNavbg(false);
-      })  
-      
-        if(userInfo.id){
-                axios.get('http://localhost:8000/get-user-carts',{headers : {
-                  'authorization' : localStorage.getItem('token')
-              }})
-                .then((res)=>{
-                      dispatch(setCarts(res.data.cartProducts))
-                }).catch((err)=>{
-                      dispatch(setMessage(err.response.data.message))
-                })
-
-        }
-      axios.get('http://localhost:8000/get-to-favourite',{headers : {
-          'authorization' : localStorage.getItem('token')
-      }})
-      .then((res)=>{
-           dispatch(setFavourites(res.data.produts))
-      }).catch((err)=>{
-           dispatch(setMessage(err.response.data.message))
       })
-  },[userInfo])
+      axios.get('http://localhost:8000/access/token/refresh',{
+        withCredentials : true
+      }).then((res)=>{
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })  
+  },[])
   const [hover,setHover] = useState('')
   const handleMouseHover =(hoverItem)=>{
     setHover(hoverItem)
@@ -107,22 +88,24 @@ const Nav = () => {
                   <NavLink to='/cart' >
                     <button className='nav-item cart-section-btn'>
                       <i className="fa-solid fa-cart-shopping"></i>
-                      {isLoggedIn && <p className='total-carts-number'>{carts.length}</p>}
-                    </button></NavLink>
+                      {/* {isLoggedIn && <p className='total-carts-number'>{carts.length}</p>} */}
+                    </button>
+                  </NavLink>
                   <NavLink to='/favourite' >
                     <button className='nav-item cart-section-btn'>
                       <i className="fa-regular fa-heart"></i>
-                      {isLoggedIn && <p className='total-carts-number'>{favourites.length}</p>}
+                      {/* {isLoggedIn && <p className='total-carts-number'>{favourites.length}</p>} */}
                     </button>
                   </NavLink>
                   
-                  {isLoggedIn ? 
+                  {/* {isLoggedIn ? 
                   <NavLink to='/profile'>
                     <button className='nav-item'><i className="fa-regular fa-user"></i></button>
-                  </NavLink> : 
+                  </NavLink> :  */}
                   <NavLink to='/login' >
                     <button className='nav-item'><i className="fa-solid fa-user"></i></button>
-                  </NavLink>}
+                  </NavLink>
+                  {/* } */}
                   
                   <button className='menu-btn mobile-nav' onClick={()=> setMenu(true)}  ><i className="fa-solid fa-bars"></i></button> 
             </div>

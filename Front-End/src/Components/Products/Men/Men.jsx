@@ -9,11 +9,10 @@ import Nav from '../../App/Nav/Nav';
 import Footer from '../../App/Footer/Footer';
 import mensBanner from '../../../assets/banners/mens-banner.jpg'
 import { useDispatch, useSelector } from 'react-redux';
-import { setMessage } from '../../Authentication/Controllers/UserSlice';
 
 const Men = () => {
   const dispatch = useDispatch()
-  const {message,selectedCategory} =useSelector(state => state.authInfo)
+  const {selectedCategory} =useSelector(state => state.authInfo)
   const [mensData,setMensData]= useState([])
 
   useEffect(()=>{
@@ -22,7 +21,7 @@ const Men = () => {
       .then((res)=>{
         setMensData(res.data.products)
       }).catch((err)=>{
-        dispatch(setMessage(err.response.data.message))
+        console.log(err)
         setMensData([])
       })
     }else{
@@ -30,12 +29,10 @@ const Men = () => {
       .then((res)=>{
         setMensData(res.data.products)
       }).catch((err)=>{
-        dispatch(setMessage(err.response.data.message))
+          console.log(err)
       })
     }
-  },[selectedCategory])
-
-  
+  },[])
 
   return (
     <div className='mens-page'>
@@ -45,7 +42,7 @@ const Men = () => {
     </div>
     <div className="mens-section">
       <div className='mens-shop'>
-          {mensData.length <= 0 ? <p>{message}</p> 
+          {mensData.length <= 0 ? <p>{''}</p> 
           : mensData.map((item)=>{
             return <OutlateProduct key={uuidv4()} item={item}/>
           })}
