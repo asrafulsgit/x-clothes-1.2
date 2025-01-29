@@ -3,14 +3,24 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 
-const OutlateProduct = ({item}) => {
+const OutlateProduct = ({item,favorites}) => {
      const dispatch = useDispatch();
-     const navigate = useNavigate()
+     const navigate = useNavigate();
      const {_id,brand,price,images} = item;
-     const [isFavourite,setIsFavourite]= useState(false)
      const [isLoading,setIsLoading]= useState(true)
-     const [isAdded,setIsAdded]= useState(false)
+
+     const [isFavourite,setIsFavourite]= useState(false)
      
+     // favorite-btn-loading
+     const [favoriteLoading,setFavoriteLoading]= useState(false)
+
+     // add-to-card-btn-loading
+     const [isAdded,setIsAdded]= useState(false)
+
+     const isFavorite = (productId) => favorites.includes(productId);
+     useEffect(()=>{
+          setIsFavourite(isFavorite(_id))
+     },[])
      const hanleAddToCart=(id)=>{
           setIsAdded(true)
           const cartInfo = {
@@ -29,51 +39,54 @@ const OutlateProduct = ({item}) => {
             
      }
      const handleFavourite=(id)=>{
+          setFavoriteLoading(true)
                const data ={
                     productId : id
-                  }
-               axios.delete('http://localhost:8000/remove-from-favourite',{data})
-                  .then((res)=>{
-                    setIsFavourite(false)
-                  }).catch((err=>{
-                      dispatch(setMessage(err.response.data.message))
+               }
+
+               if(!isFavourite){
+                    console.log('addd')
+                    axios.post('http://localhost:8000/add-to-favourite',data,{
+                         withCredentials : true
+                       })
+                       .then((res)=>{
+                            console.log(res)
+                            setIsFavourite(true)
+                            setFavoriteLoading(false)
+                       }).catch((err)=>{
+                            console.log(err)
+                            setIsFavourite(false)
+                       })
+               } 
+
+               if(isFavourite){
+                    console.log('delete')
+                    axios.delete(`http://localhost:8000/remove-from-favourite/${id}`,{
+                         withCredentials : true
+                    }                     
+                    ).then((res)=>{
+                         setIsFavourite(false)
+                         setFavoriteLoading(false)
+                    }).catch((err=>{
+                    //   dispatch(setMessage(err.response.data.message))
                       setIsFavourite(true)
                     }))
-    
-                    axios.post('http://localhost:8000/add-to-favourite',cartInfo)
-                    .then((res)=>{
-                         // console.log(res)
-                         setIsFavourite(true)
-                    }).catch((err)=>{
-                         console.log(err)
-                         setIsFavourite(false)
-                    }) 
-         
+               } 
+               // isFavorite(id)
      }
-     const hanldeMouseHover=(id)=>{
-          // const cartInfo = {
-          //      productId : id,
-          //      userId    : userInfo.id
-          // }
-          //      axios.post('http://localhost:8000/check-from-favourite',cartInfo)
-          //      .then((res)=>{
-          //           dispatch(setMessage(res.data.message))
-          //           setIsFavourite(res.data.success)
-          //           setIsLoading(false)
-          //      }).catch((err)=>{
-          //           dispatch(setMessage(err.response.data.message))
-          //           setIsFavourite(err.response.data.success)
-          //           setIsLoading(false)
-          //           console.clear()
-          //      }) 
-     }
+
   return (
-     <div className="outlate-card" onMouseEnter={()=>hanldeMouseHover(_id)}>
-          <div className="outlate-card-image">
-               {!isLoading && 
+     <div className="outlate-card">
+          <div className="outlate-card-image"> 
                <button onClick={()=>handleFavourite(_id)} className='add-to-favourite-btn' >
-                    <i className={`fa-${isFavourite ? 'solid' : 'regular'} fa-heart`}></i>  
-               </button> }
+                    {favoriteLoading ?
+                         <div className="loadingio-spinner-rolling-nq4q5u6dq7r ">
+                              <div className="ldio-x2uulkbinbj favorite-spinner">
+                                   <div></div>
+                              </div>
+                         </div>
+                    : <i className={`fa-${isFavourite ? 'solid' : 'regular'} fa-heart`}></i>}  
+               </button> 
                <img loading='lazy' className='image' src={images[0]} alt="" />
           </div>
           <div className="outlate-card-footer">

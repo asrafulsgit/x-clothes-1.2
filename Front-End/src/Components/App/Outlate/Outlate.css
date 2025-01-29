@@ -56,34 +56,19 @@
      /* border-radius: 5px; */
      position: relative;
 }
-.outlate-card:hover .add-to-favourite-btn{
-     display: flex;
-     justify-content: center;
-     align-items: center;
-}
 
 .outlate-card-image .add-to-favourite-btn{
      position:absolute;
      right: 10px;
      top: 10px;
-     /* border: 1px solid black; */
      background-color: white;
      border: none;
      border-radius: 50%;
      padding: 2px;
-     display: none;
      outline: none;
      cursor: pointer;
-     animation: favouritebtn 0.2s ease;
 }
-@keyframes favouritebtn {
-     0%{
-          right: 0px;
-     }
-     100%{
-          right: 10px;
-     }
-}
+
 .add-to-favourite-btn i{
      font-size: 1rem;
 }
@@ -154,6 +139,16 @@
      width:10px;
      height: 10px;
      border: 2px solid #e15b64;
+     border-top-color: transparent;
+     border-radius: 50%;
+   }
+   .favorite-spinner div{
+     animation: ldio-x2uulkbinbj 1s linear infinite;
+     box-sizing: content-box; 
+     position: absolute;
+     width:10px;
+     height: 10px;
+     border: 2px solid black;
      border-top-color: transparent;
      border-radius: 50%;
    }

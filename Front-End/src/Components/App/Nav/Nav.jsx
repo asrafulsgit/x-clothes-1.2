@@ -17,12 +17,23 @@ const Nav = () => {
   // nav settings
   const [navbg, setNavbg]= useState(false)
   const [carts,setCarts]= useState(0)
+  const [favorites,setFavorites]=useState(0)
   useEffect(()=>{
       window.addEventListener('scroll', ()=>{
         window.scrollY > 50 ? setNavbg(true) : setNavbg(false);
       })
 
       socket.on('carts',(data)=> setCarts(data))
+      socket.on('favourites',(data)=> setFavorites(data))
+
+      axios.get("http://localhost:8000/favorite/count", {
+        withCredentials: true,
+      }).then((res)=>{
+        setFavorites(res.data.count);
+      }). catch((err)=>{
+        console.log(err)
+      }) 
+
       axios.get("http://localhost:8000/cart/count", {
         withCredentials: true,
       }).then((res)=>{
@@ -107,7 +118,7 @@ const Nav = () => {
                   <NavLink to='/favourite' >
                     <button className='nav-item cart-section-btn'>
                       <i className="fa-regular fa-heart"></i>
-                      {/* {isLoggedIn && <p className='total-carts-number'>{favourites.length}</p>} */}
+                      {isLoggedIn && <p className='total-carts-number'>{favorites}</p>}
                     </button>
                   </NavLink>
                   
