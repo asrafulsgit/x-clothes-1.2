@@ -1,13 +1,12 @@
-const express = require('express')
 const dotenv = require('dotenv').config();
 const mongoConnection = require('./config/mongoConnect')
 
+const server = require('./app')
 
-const app = require('./app')
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
      console.log('server is running....',PORT)
 })
     

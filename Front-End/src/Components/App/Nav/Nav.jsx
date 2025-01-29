@@ -4,26 +4,39 @@ import './Nav.css'
 
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCarts, setMessage, setSelectedCategory, setSecondaryNav, setFavourites } from '../../Authentication/Controllers/UserSlice'
+import {setSelectedCategory, setSecondaryNav } from '../../Authentication/Controllers/UserSlice'
 import MensNav from './MensNav'
 import WomensNav from './WomensNav'
 import KidsNav from './KidsNav'
 import WinterNav from './WinterNav'
+import socket from '../../../../socket'
 const Nav = () => {
   const dispatch = useDispatch();
   const {secondaryNav} = useSelector(state => state.authInfo)
-  
+  const [isLoggedIn,setIsLoggedIn]=useState(false)
   // nav settings
   const [navbg, setNavbg]= useState(false)
-
+  const [carts,setCarts]= useState(0)
   useEffect(()=>{
       window.addEventListener('scroll', ()=>{
         window.scrollY > 50 ? setNavbg(true) : setNavbg(false);
       })
+
+      socket.on('carts',(data)=> setCarts(data))
+      axios.get("http://localhost:8000/cart/count", {
+        withCredentials: true,
+      }).then((res)=>{
+        setCarts(res.data.count);
+      }). catch((err)=>{
+        console.log(err)
+      }) 
+
+      // token refresh
       axios.get('http://localhost:8000/access/token/refresh',{
         withCredentials : true
       }).then((res)=>{
-        console.log(res)
+        // console.log(res)
+        setIsLoggedIn(true)
       }).catch((err)=>{
         console.log(err)
       })  
@@ -88,7 +101,7 @@ const Nav = () => {
                   <NavLink to='/cart' >
                     <button className='nav-item cart-section-btn'>
                       <i className="fa-solid fa-cart-shopping"></i>
-                      {/* {isLoggedIn && <p className='total-carts-number'>{carts.length}</p>} */}
+                      {isLoggedIn && <p className='total-carts-number'>{carts}</p>}
                     </button>
                   </NavLink>
                   <NavLink to='/favourite' >

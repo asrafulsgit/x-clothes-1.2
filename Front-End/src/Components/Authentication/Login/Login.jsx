@@ -5,11 +5,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../../App/Nav/Nav'
 import Footer from '../../App/Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMessage } from '../Controllers/UserSlice'
 const Login = () => {
 
      const dispatch = useDispatch()
-     const {message}= useSelector(state => state.authInfo)
      const [errorField,setErrorField] = useState('')
      // login settings
      const navigate = useNavigate()
@@ -22,7 +20,6 @@ const Login = () => {
      const handleChange =(e)=>{
           const {name, value}= e.target;
           setUser({...user,[name]:value})
-          dispatch(setMessage(''))
      }
      const handleSubmit =(e)=>{
           e.preventDefault();
@@ -37,7 +34,6 @@ const Login = () => {
                     window.location.reload()
                }).catch((err)=>{
                     console.log(err)
-                    dispatch(setMessage(err.response.data.message))
                     setErrorField(err.response.data.field)
                })  
      }
@@ -47,7 +43,7 @@ const Login = () => {
      }
   return (
      <>
-     <Nav />
+     {/* <Nav /> */}
     <div className='login-section'>
        <form onSubmit={handleSubmit}>
           <div className='email-fild'>

@@ -1,4 +1,6 @@
 const express = require('express');
+const http = require('http')
+const {initSocket, getIo} = require('./socket')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./Routers/user.router')
 const productRouter = require('./Routers/product.router')
@@ -7,6 +9,12 @@ const { addToCartRoute } = require('./Routers/addToCart.router');
 const  {favouriteRoute} = require('./Routers/addToFavourite.router');
 
 const app = express();
+
+const server = http.createServer(app)
+const io = initSocket(server)
+
+
+
 app.use(cookieParser())
 app.use(cors({
      origin : 'http://localhost:5173',
@@ -20,5 +28,5 @@ app.use(productRouter)
 app.use(addToCartRoute)
 app.use(favouriteRoute)
 
-module.exports = app;
+module.exports = server;
 

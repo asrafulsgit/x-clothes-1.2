@@ -9,7 +9,7 @@ const Protect = () => {
           axios.get('http://localhost:8000/access/token/refresh',{
             withCredentials : true
           }).then((res)=>{
-            console.log(res)
+            // console.log(res)
             setIsAuth(res.data.isAuth)
             setLoading(false)
           }).catch((err)=>{
