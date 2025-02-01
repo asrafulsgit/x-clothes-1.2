@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setSecondaryNav, setSelectedCategory } from '../../Authentication/Controllers/UserSlice';
+import { setSecondaryNav } from '../../Authentication/Controllers/UserSlice';
 import image from '../../../assets/nav-image/winter.jpg'
 
 const WinterNav = () => {
   const dispatch = useDispatch()
-  const hanldeClick =(category)=>{
-     dispatch(setSelectedCategory(category))
+  const hanldeClick =()=>{
      dispatch(setSecondaryNav(false))
   }
      const winterNavData ={
@@ -94,7 +93,7 @@ const WinterNav = () => {
                       {winterNavData.winterMens.
                       map((item,index)=>{
                         const {name,subcategory}= item;
-                        return <NavLink key={index} to='/winter' onClick={()=> hanldeClick(subcategory)} >{name}</NavLink>
+                        return <NavLink key={index} to={`/winter/${subcategory}`} onClick={()=> hanldeClick(subcategory)} >{name}</NavLink>
                       })}  
                     </div>
                     {/* winter womens nav */}
@@ -103,7 +102,7 @@ const WinterNav = () => {
                       {winterNavData.winterWomens.
                       map((item,index)=>{
                         const {name,subcategory}= item;
-                        return <NavLink key={index} to='/winter' onClick={()=> hanldeClick(subcategory)} >{name}</NavLink>
+                        return <NavLink key={index} to={`/winter/${subcategory}`} onClick={()=> hanldeClick(subcategory)} >{name}</NavLink>
                       })}  
                     </div>
                     {/* winter kids nav */}
@@ -114,7 +113,7 @@ const WinterNav = () => {
                         {winterNavData.winterBoys.
                         map((item,index)=>{
                           const {name,subcategory}= item;
-                          return <NavLink key={index} to='/winter' onClick={()=> hanldeClick(subcategory)}>{name}</NavLink>
+                          return <NavLink key={index} to={`/winter/${subcategory}`} onClick={()=> hanldeClick(subcategory)}>{name}</NavLink>
                         })}  
                       </div>
                       {/* winter kids-girls nav */}
@@ -123,7 +122,7 @@ const WinterNav = () => {
                         {winterNavData.winterGirls.
                         map((item,index)=>{
                           const {name,subcategory}= item;
-                          return <NavLink key={index} to='/winter' onClick={()=> hanldeClick(subcategory)} >{name}</NavLink>
+                          return <NavLink key={index} to={`/winter/${subcategory}`} onClick={()=> hanldeClick(subcategory)} >{name}</NavLink>
                         })}  
                       </div>
                     </div>

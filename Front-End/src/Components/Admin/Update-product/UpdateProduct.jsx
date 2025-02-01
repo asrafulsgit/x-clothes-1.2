@@ -4,12 +4,12 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { categories, subCategories } from '../../../allProductDetails/ProductCategories'
 import {useNavigate, useParams } from 'react-router-dom'
-import { setMessage } from '../../Authentication/Controllers/UserSlice'
+
 
 const UpdateProduct = () => {
      const dispatch = useDispatch()
      const {id} = useParams();
-     const {message} = useSelector(state=> state.authInfo)
+     const {message} = 'useSelector(state=> state.authInfo)'
      const navigate = useNavigate()
      const [isProduct,setIsProduct]= useState(false)
      const initialProduct = {

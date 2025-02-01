@@ -1,12 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setSecondaryNav, setSelectedCategory } from '../../Authentication/Controllers/UserSlice';
+import { setSecondaryNav } from '../../Authentication/Controllers/UserSlice';
 import image from '../../../assets/nav-image/kids.jpg'
+
 const KidsNav = () => {
     const dispatch = useDispatch()
-     const hanldeClick =(subcategory)=>{
-        dispatch(setSelectedCategory(subcategory))
+     const hanldeClick =()=>{
         dispatch(setSecondaryNav(false))
      }
      const boysNavData =[
@@ -34,7 +34,7 @@ const KidsNav = () => {
                     <h2>Boys</h2>
                     {boysNavData.map((item,index)=>{
                       const {name,subcategory}= item;
-                      return <NavLink key={index} to='/kids' 
+                      return <NavLink key={index} to={`/kids/${subcategory}`} 
                       onClick={()=>hanldeClick(subcategory)}>{name}</NavLink>
                     })} 
                   </div> 
@@ -42,7 +42,7 @@ const KidsNav = () => {
                     <h2>Girls</h2>
                     {girlsNavData.map((item,index)=>{
                       const {name,subcategory}= item;
-                      return <NavLink key={index} to='/kids' onClick={()=>hanldeClick(subcategory)} >{name}</NavLink>
+                      return <NavLink key={index} to={`/kids/${subcategory}`} onClick={()=>hanldeClick(subcategory)} >{name}</NavLink>
                     })} 
                   </div> 
                 </div>

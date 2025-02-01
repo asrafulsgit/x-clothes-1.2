@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Show.css'
 import {Link} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setSelectedCategory } from '../../Authentication/Controllers/UserSlice'
+
 const Show = () => {
      const dispatch = useDispatch()
      const [hover,setHover]=useState('')

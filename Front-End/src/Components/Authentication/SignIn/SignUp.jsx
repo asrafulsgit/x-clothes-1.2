@@ -6,11 +6,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../../App/Nav/Nav'
 import Footer from '../../App/Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMessage } from '../Controllers/UserSlice'
+
 
 const SignUp = () => {
      const dispatch = useDispatch()
-     const {message}= useSelector(state => state.authInfo)
+     const {message}= 'hello'
   const navigate = useNavigate()
   const [seePassword, setSeePassword] = useState(false)
   const [errorField,setErrorField] = useState('')

@@ -29,20 +29,25 @@ import Women from './Components/Products/Women/Women'
 import Kids from './Components/Products/Kids/Kids'
 import Winter from './Components/Products/Winter/Winter'
 import Productinfo from './Components/ProducInfo/Productinfo/Productinfo'
+import Page_Load from './Page_Load'
+import User from './User'
+import { useSelector } from 'react-redux'
 // import Shop from './Components/Shops/Shop'
 
 const App = () => {
- 
+  const {isLoggedIn,loading} = useSelector(state => state.authInfo)
   return (
     <BrowserRouter >
+      <Page_Load /> 
+      {isLoggedIn && <User />} 
       <ScrollProblem />
     <Routes>
         // public Route
         <Route path='/' element={<Home />}/>
-        <Route path='/men' element={<Men />}/>
-        <Route path='/women' element={<Women />}/>
-        <Route path='/kids' element={<Kids />}/>
-        <Route path='/winter' element={<Winter />} />
+        <Route path='/men/:category' element={<Men />}/>
+        <Route path='/women/:category' element={<Women />}/>
+        <Route path='/kids/:category' element={<Kids />}/>
+        <Route path='/winter/:category' element={<Winter />} />
         <Route path='/product/:id' element={<Productinfo />}/>
         {/* <Route path='/products/shop' element={<Shop />}/>   */}
 
@@ -71,12 +76,12 @@ const App = () => {
         </Route>
 
         // admin Route
-        {/* <Route element={<Home />} >
+        
           <Route path='/admin/add-product' element={<AddProduct />}/>
           <Route path='/admin/all-product' element={<AllProducts />} />
           <Route path='/admin/dashboard' element={<DashBoard />} />
           <Route path='/admin/update-product/:id' element={<UpdateProduct />} />
-        </Route> */}
+ 
 
         // Others Route
         <Route path='/aboutus' element={<AboutUs />} />

@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setSecondaryNav, setSelectedCategory } from '../../Authentication/Controllers/UserSlice';
+import { setSecondaryNav } from '../../Authentication/Controllers/UserSlice';
 import image from '../../../assets/nav-image/womens.jpg'
 
 const WomensNav = () => {
   const dispatch = useDispatch()
-  const hanldeClick =(category)=>{
-     dispatch(setSelectedCategory(category))
+  const hanldeClick =()=>{
      dispatch(setSecondaryNav(false))
   }
      const womensCategories =[
@@ -74,7 +73,7 @@ const WomensNav = () => {
                     {womensCategories &&
                     womensCategories.map((item,index)=>{
                       const {name,subcategory}= item;
-                      return <NavLink key={index} to='/women' onClick={()=>hanldeClick(subcategory)} >{name}</NavLink>
+                      return <NavLink key={index} to={`/women/${subcategory}`} onClick={()=>hanldeClick(subcategory)} >{name}</NavLink>
                     })}  
                 </div>
        </div>

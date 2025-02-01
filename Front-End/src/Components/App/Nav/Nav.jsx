@@ -4,53 +4,29 @@ import './Nav.css'
 
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import {setSelectedCategory, setSecondaryNav } from '../../Authentication/Controllers/UserSlice'
+import {setSecondaryNav } from '../../Authentication/Controllers/UserSlice'
 import MensNav from './MensNav'
 import WomensNav from './WomensNav'
 import KidsNav from './KidsNav'
 import WinterNav from './WinterNav'
 import socket from '../../../../socket'
+import { setCarts,setFavorites } from '../../Authentication/Controllers/UserSlice'
 const Nav = () => {
   const dispatch = useDispatch();
-  const {secondaryNav} = useSelector(state => state.authInfo)
-  const [isLoggedIn,setIsLoggedIn]=useState(false)
+  const {loading,secondaryNav,isLoggedIn,carts,favorites} = useSelector(state => state.authInfo)
+
   // nav settings
   const [navbg, setNavbg]= useState(false)
-  const [carts,setCarts]= useState(0)
-  const [favorites,setFavorites]=useState(0)
+  
   useEffect(()=>{
       window.addEventListener('scroll', ()=>{
         window.scrollY > 50 ? setNavbg(true) : setNavbg(false);
       })
 
-      socket.on('carts',(data)=> setCarts(data))
-      socket.on('favourites',(data)=> setFavorites(data))
+      socket.on('carts',(data)=> dispatch(setCarts(data)))
+      socket.on('favourites',(data)=> dispatch(setFavorites(data)))
 
-      axios.get("http://localhost:8000/favorite/count", {
-        withCredentials: true,
-      }).then((res)=>{
-        setFavorites(res.data.count);
-      }). catch((err)=>{
-        console.log(err)
-      }) 
-
-      axios.get("http://localhost:8000/cart/count", {
-        withCredentials: true,
-      }).then((res)=>{
-        setCarts(res.data.count);
-      }). catch((err)=>{
-        console.log(err)
-      }) 
-
-      // token refresh
-      axios.get('http://localhost:8000/access/token/refresh',{
-        withCredentials : true
-      }).then((res)=>{
-        // console.log(res)
-        setIsLoggedIn(true)
-      }).catch((err)=>{
-        console.log(err)
-      })  
+      
   },[])
   const [hover,setHover] = useState('')
   const handleMouseHover =(hoverItem)=>{
@@ -69,25 +45,25 @@ const Nav = () => {
     {
       name : 'Winter',
       hover : 'winter',
-      path : '/winter',
+      path : '/winter/10233342',
       categories: ['102130','230240','330340','420440']
     },
     {
       name : `Men's`,
       hover : 'mens',
-      path : '/men',
+      path : '/men/101120',
       categories: ['101120']
     },
     {
       name : `Women's`,
       hover : 'womens',
-      path : '/women',
+      path : '/women/201230',
       categories: ['201230']
     },
     {
       name : `Kid's`,
       hover : 'kids',
-      path : '/kids',
+      path : '/kids/304014',
       categories: ['301320','401420']
     }
   ]
@@ -112,13 +88,13 @@ const Nav = () => {
                   <NavLink to='/cart' >
                     <button className='nav-item cart-section-btn'>
                       <i className="fa-solid fa-cart-shopping"></i>
-                      {isLoggedIn && <p className='total-carts-number'>{carts}</p>}
+                      {isLoggedIn && <p className='total-carts-number'>{carts || 0}</p>}
                     </button>
                   </NavLink>
                   <NavLink to='/favourite' >
                     <button className='nav-item cart-section-btn'>
                       <i className="fa-regular fa-heart"></i>
-                      {isLoggedIn && <p className='total-carts-number'>{favorites}</p>}
+                      {isLoggedIn && <p className='total-carts-number'>{favorites || 0}</p>}
                     </button>
                   </NavLink>
                   

@@ -9,18 +9,18 @@ const OutlateProduct = ({item,favorites}) => {
      const {_id,brand,price,images} = item;
      const [isLoading,setIsLoading]= useState(true)
 
-     const [isFavourite,setIsFavourite]= useState(false)
+     // const [isFavourite,setIsFavourite]= useState(false)
      
      // favorite-btn-loading
-     const [favoriteLoading,setFavoriteLoading]= useState(false)
+     // const [favoriteLoading,setFavoriteLoading]= useState(false)
 
      // add-to-card-btn-loading
      const [isAdded,setIsAdded]= useState(false)
 
      const isFavorite = (productId) => favorites.includes(productId);
-     useEffect(()=>{
-          setIsFavourite(isFavorite(_id))
-     },[])
+     // useEffect(()=>{
+     //      setIsFavourite(isFavorite(_id))
+     // },[])
      const hanleAddToCart=(id)=>{
           setIsAdded(true)
           const cartInfo = {
@@ -38,55 +38,57 @@ const OutlateProduct = ({item,favorites}) => {
           }) 
             
      }
-     const handleFavourite=(id)=>{
-          setFavoriteLoading(true)
-               const data ={
-                    productId : id
-               }
-
-               if(!isFavourite){
-                    console.log('addd')
-                    axios.post('http://localhost:8000/add-to-favourite',data,{
-                         withCredentials : true
-                       })
-                       .then((res)=>{
-                            console.log(res)
-                            setIsFavourite(true)
-                            setFavoriteLoading(false)
-                       }).catch((err)=>{
-                            console.log(err)
-                            setIsFavourite(false)
-                       })
-               } 
-
-               if(isFavourite){
-                    console.log('delete')
-                    axios.delete(`http://localhost:8000/remove-from-favourite/${id}`,{
-                         withCredentials : true
-                    }                     
-                    ).then((res)=>{
-                         setIsFavourite(false)
-                         setFavoriteLoading(false)
-                    }).catch((err=>{
-                    //   dispatch(setMessage(err.response.data.message))
-                      setIsFavourite(true)
-                    }))
-               } 
-               // isFavorite(id)
-     }
-
+     // const handleFavourite=(id,isFavorite)=>{
+     //      setFavoriteLoading(true)
+     //           const data ={
+     //                productId : id
+     //           }
+     //           // console.log(isFavourite)
+     //           if(!isFavorite){
+     //                console.log('addd')
+     //                setTimeout(() => {
+     //                     axios.post('http://localhost:8000/add-to-favourite',data,{
+     //                          withCredentials : true
+     //                        })
+     //                        .then((res)=>{
+     //                          //    console.log(res)
+     //                          setIsFavourite(true)
+     //                          console.log('adddeeed')
+     //                          setFavoriteLoading(false)
+     //                        }).catch((err)=>{
+     //                             console.log(err)
+     //                          //    setIsFavourite(false)
+     //                        })
+     //                }, 2000);
+                       
+     //           } 
+     //           if(isFavorite){
+     //                console.log('delete')
+     //                axios.delete(`http://localhost:8000/remove-from-favourite/${id}`,{
+     //                     withCredentials : true
+     //                }                     
+     //                ).then((res)=>{
+     //                     setIsFavourite(false)
+     //                     setFavoriteLoading(false)
+     //                }).catch((err=>{
+     //                //   dispatch(setMessage(err.response.data.message))
+     //                //   setIsFavourite(true)
+     //                }))
+     //           } 
+              
+     // }
   return (
      <div className="outlate-card">
           <div className="outlate-card-image"> 
-               <button onClick={()=>handleFavourite(_id)} className='add-to-favourite-btn' >
-                    {favoriteLoading ?
+               {/* <button  onClick={()=>handleFavourite(_id)} className='add-to-favourite-btn' >
+                    {favoriteLoading ?  
                          <div className="loadingio-spinner-rolling-nq4q5u6dq7r ">
                               <div className="ldio-x2uulkbinbj favorite-spinner">
                                    <div></div>
                               </div>
                          </div>
                     : <i className={`fa-${isFavourite ? 'solid' : 'regular'} fa-heart`}></i>}  
-               </button> 
+               </button>  */}
                <img loading='lazy' className='image' src={images[0]} alt="" />
           </div>
           <div className="outlate-card-footer">

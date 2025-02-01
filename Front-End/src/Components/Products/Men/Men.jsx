@@ -9,31 +9,48 @@ import Nav from '../../App/Nav/Nav';
 import Footer from '../../App/Footer/Footer';
 import mensBanner from '../../../assets/banners/mens-banner.jpg'
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 const Men = () => {
-  const dispatch = useDispatch()
-  const {selectedCategory} =useSelector(state => state.authInfo)
+
+  const {category} = useParams();
   const [mensData,setMensData]= useState([])
+  const [loading,setLoading] = useState(true)
+  const [favorites,setFavorites]=useState([])
 
   useEffect(()=>{
-    if(selectedCategory.length > 0){
-      axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : selectedCategory})
+    if(category.length === 3){
+      axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : category})
       .then((res)=>{
         setMensData(res.data.products)
+        setLoading(false)
       }).catch((err)=>{
         console.log(err)
         setMensData([])
       })
-    }else{
+    }
+    if(category === '101120'){
       axios.post('http://localhost:8000/get-product-by-categoris',{categories : ['101120']})
       .then((res)=>{
         setMensData(res.data.products)
+        setLoading(false)
       }).catch((err)=>{
           console.log(err)
       })
     }
-  },[])
-
+    axios.get('http://localhost:8000/get-to-favourite',{
+      withCredentials:true
+    }).then((res)=>{
+          // console.log(res.data)
+          const favorite = res.data.products;
+          favorite.map(item => setFavorites((prev)=> [...prev,item._id]))
+    }).catch((err)=>{
+          console.log(err)
+    })
+  },[category])
+  if(loading){
+    return <h1>loading....</h1>
+  }
   return (
     <div className='mens-page'>
     <Nav />
@@ -42,10 +59,10 @@ const Men = () => {
     </div>
     <div className="mens-section">
       <div className='mens-shop'>
-          {mensData.length <= 0 ? <p>{''}</p> 
-          : mensData.map((item)=>{
-            return <OutlateProduct key={uuidv4()} item={item}/>
-          })}
+      {!loading && mensData.length <= 0 && <p>{''}</p>}
+      {!loading && mensData.length >= 0 &&  mensData.map((item)=>{
+        return <OutlateProduct key={uuidv4()} item={item} favorites={favorites}/>
+      })}
       </div>
     </div>
     <Footer />
