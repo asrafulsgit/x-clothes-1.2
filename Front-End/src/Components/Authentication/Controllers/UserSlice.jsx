@@ -9,7 +9,9 @@ const userSlice = createSlice({
           carts        : 0,
           favoritesProducts: [],
           isLoggedIn  : false,
-          loading      : true
+          loading      : true,
+          isReadyForEmailVerify : false,     // for forgot password
+          email : ''                         // for forgot password
      },
      reducers : {
           setSecondaryNav (state,action){
@@ -30,8 +32,17 @@ const userSlice = createSlice({
           setLoading(state,action){
                state.loading = action.payload;
           },
+          setIsReadyForEmailVerify(state,action){
+               state.isReadyForEmailVerify = action.payload;
+          },
+          setEmail(state,action){
+               state.email = action.payload;
+          }
+          
+
      }
 })
 
-export const {setFavorites,setFavoritesProducts,setCarts,setIsLoggedIn,setLoading,setSecondaryNav} = userSlice.actions;
+export const {setFavorites,setFavoritesProducts,setCarts,setIsLoggedIn,
+     setLoading,setSecondaryNav,setIsReadyForEmailVerify,setEmail} = userSlice.actions;
 export default userSlice.reducer;

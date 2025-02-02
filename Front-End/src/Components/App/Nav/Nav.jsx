@@ -98,14 +98,10 @@ const Nav = () => {
                     </button>
                   </NavLink>
                   
-                  {/* {isLoggedIn ? 
-                  <NavLink to='/profile'>
-                    <button className='nav-item'><i className="fa-regular fa-user"></i></button>
-                  </NavLink> :  */}
-                  <NavLink to='/login' >
-                    <button className='nav-item'><i className="fa-solid fa-user"></i></button>
+                  <NavLink to={isLoggedIn ? '/profile' : '/login'} >
+                    <button className='nav-item'><i className={`fa-${isLoggedIn ? 'regular' : 'solid'} fa-user`}></i></button>
                   </NavLink>
-                  {/* } */}
+                  
                   
                   <button className='menu-btn mobile-nav' onClick={()=> setMenu(true)}  ><i className="fa-solid fa-bars"></i></button> 
             </div>

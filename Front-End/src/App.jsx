@@ -6,6 +6,10 @@ import ScrollProblem from './Components/Others/ScrollProblem'
 import Login from './Components/Authentication/Login/Login'
 import SignUp from './Components/Authentication/SignIn/SignUp'
 
+import ForgotPass from './Components/Authentication/ForgotPassword/FindUser/ForgotPass'
+import VerifyEmail from './Components/Authentication/ForgotPassword/PrivateRoute/VerifyEmail'
+import EmailVerification from './Components/Authentication/ForgotPassword/EmailVerification/EmailVerification'
+
 import AddProduct from './Components/Admin/Add-product/AddProduct'
 import AllProducts from './Components/Admin/All-product/AllProducts'
 
@@ -56,16 +60,16 @@ const App = () => {
           <Route element={<Protect_login />}>
             <Route path='/login' element={<Login />}/>
             <Route path='/signup' element={<SignUp />}/>
-            {/* <Route path='/find-user' element={<ForgotPass />} /> */}
+            <Route path='/find-user' element={<ForgotPass />} />
           </Route>
 
           // forgot-password
-          {/* <Route element={<IsEmailExist />}>
+          <Route element={<VerifyEmail />}>
             <Route path='/eamil-verication' element={<EmailVerification />} />
           </Route>
-          <Route element={<IsVerified />}>
-            <Route path='/reset-password' element={<ResetPassword />} />
-          </Route> */}
+          {/* <Route element={<IsVerified />}>
+             <Route path='/reset-password' element={<ResetPassword />} />
+          </Route>  */}
         
         //Private Route   
         //only authorized person can access this pages

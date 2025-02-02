@@ -7,16 +7,20 @@ const Page_Load = () => {
      const dispatch = useDispatch()
      const {isLoggedIn,loading} = useSelector(state => state.authInfo)
      useEffect(()=>{
-          axios.get('http://localhost:8000/access/token/refresh',{
-                  withCredentials : true
-               }).then((res)=>{
-                  console.log(res)
-                  dispatch(setIsLoggedIn(true))
-                  dispatch(setLoading(false))
-                }).catch((err)=>{
-                  console.log(err)
-                  dispatch(setLoading(false))
-                })            
+          try {
+            axios.get('http://localhost:8000/access/token/refresh',{
+              withCredentials : true
+           }).then((res)=>{
+              // console.log(res)
+              dispatch(setIsLoggedIn(true))
+              dispatch(setLoading(false))
+            }).catch((err)=>{
+              // console.log(err)
+              dispatch(setLoading(false))
+            })  
+          } catch (error) {
+            console.error('the error is', error)
+          }          
      },[])
   return (<></>)
 }

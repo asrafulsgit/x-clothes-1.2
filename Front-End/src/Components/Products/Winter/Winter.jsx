@@ -17,7 +17,6 @@ const Winter = () => {
   const {selectedCategory,favoritesProducts} = useSelector(state => state.authInfo)
   const [winterData,setWinterData]= useState([])
   const [loading,setLoading] = useState(true)
-  const [favorites,setFavorites]=useState([])
   useEffect(()=>{
     if(category.length === 3){
       axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : category})
@@ -53,7 +52,7 @@ const Winter = () => {
           <div className='womens-shop'>
               {!loading && winterData.length <= 0 && <p>{''}</p>}
               {!loading && winterData.length >= 0 &&  winterData.map((item)=>{
-                return <OutlateProduct key={uuidv4()} item={item} favorites={favoritesProducts}/>
+                return <OutlateProduct key={uuidv4()} item={item} />
               })}
           </div>
       </div>

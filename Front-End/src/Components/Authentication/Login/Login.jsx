@@ -49,14 +49,14 @@ const Login = () => {
           <div className='email-fild'>
                <label htmlFor="email">Email</label>
                <input type="email"  id='email' 
-               name='email'onChange={handleChange} required/>
+               name='email' onChange={handleChange} required/>
                <p className='message'>{errorField === 'email' && message}</p>
           </div>
           <div className='password-div'>
                <label htmlFor='password'>Password</label>
                <div className='password-field'>
                     <input type={seePassword ? 'text' : 'password'} id='password' name='password'
-                    onChange={handleChange} required />
+                    onChange={handleChange} required autoComplete='off' />
                     {user.password.length > 0 && 
                     <button type='button' onClick={handlePassword} className='seePassword-btn'>
                          <i className={`fa-solid fa-eye${seePassword ? '-slash': ''}`}></i>

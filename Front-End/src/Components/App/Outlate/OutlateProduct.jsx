@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 
-const OutlateProduct = ({item,favorites}) => {
+const OutlateProduct = ({item}) => {
      const dispatch = useDispatch();
      const navigate = useNavigate();
      const {_id,brand,price,images} = item;

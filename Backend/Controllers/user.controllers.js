@@ -149,27 +149,83 @@ const tokenRefresh =async(req,res)=>{
 }
 
 const userProfile = async (req,res)=>{
+     const userId = req.userInfo.id;
      try {
-          const userInfo = req.userInfo;
-          res.status(200).send(userInfo) 
+          const user = await User.findById(userId)
+          if(!user){
+               return res.status(404).send({
+                    message : 'user is not found!',
+                    success : false
+               })
+          }
+          const {name,email}=user;
+          return res.status(200).send({
+               message : 'user info',
+               userInfo : {name,email},
+               success : true
+          }) 
      } catch (error) {
-          res.status(500).send({message : 'somthing broke!'})
+         return res.status(500).send({
+          message : 'somthing broke!',
+          success : false
+        })
      }     
+}
+
+const userLogout =async(req,res)=>{
+     const {refreshtoken} = req.cookies;
+     const userId = req.userInfo.id;
+     try {
+          if(!refreshtoken){
+               return res.status(401).send({
+                    message : 'user allready logged out'
+               })
+          }
+          const user = await User.findById(userId)
+          if(!user){
+               return res.status(404).send({
+                    message : 'user is not found'
+               })
+          }
+
+          user.refreshtoken = null;
+          await user.save();
+          res.clearCookie("accesstoken",{ 
+               httpOnly: true, 
+               secure: false, 
+               sameSite: "Strict"
+          });
+          res.clearCookie("refreshtoken", {
+               httpOnly: true, 
+               secure: false, 
+               sameSite: "Strict"
+          });
+          return res.status(200).send({
+               message : 'user logout successful',
+               success : true
+          })
+     } catch (error) {
+          return res.status(500).send({
+               message : 'somthing broke!',
+               success : false
+          })
+     }
 }
 
 // forgot-password
 const findUserAndSendEmail =async(req,res)=>{
+     const {email} = req.body;
      try {
-          const {email} = req.body;
           const user = await User.findOne({email})
           if(!user){
-               res.status(404).send({ message : 'email is not found!'})
-          }else{    
-               const createVerificationCode = Math.floor((Math.random()+1)*100000)
-               
-               user.resetpasswordcode = createVerificationCode;
-               user.resetpasswordexpiries = Date.now() + 60000  // 1min
-               await user.save();
+              return res.status(404).send({ message : 'user is not found!'})
+          }
+            
+          const createVerificationCode = Math.floor(100000 + Math.random() * 900000)
+          const hashCode = await bcrypt.hash(createVerificationCode.toString(), 10);
+          user.resetpasswordcode = hashCode;
+          user.resetpasswordexpiries = Date.now() + 60000  // 1min
+          await user.save();
 
                // send mail
                const transporter = nodemailer.createTransport({
@@ -178,31 +234,34 @@ const findUserAndSendEmail =async(req,res)=>{
                     host : 'smtp.gmail.com',
                     port : 465,
                     auth: {
-                      user: 'sourob2356@gmail.com',
-                      pass: 'hgwoowqncjmmpdkr'
+                      user: process.env.AUTH_EMAIL,
+                      pass: process.env.AUTH_PASSWORD
                     }
                   });
                   
                   const mailOptions = {
-                    from: 'sourob2356@gmail.com',
+                    from: process.env.AUTH_EMAIL,
                     to: email,
                     subject: 'Reset password',
                     text: `your reset password code is ${createVerificationCode}`
                   };
-                transporter.sendMail(mailOptions, function(error, info){
+
+               
+
+               transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
-                         console.log(error);
-                    } else {
-                         res.status(200).send({
-                              message : 'Verification code is sent'
-                         })
-                    }
-                  });
+                       return console.log(error);
+                    } 
+                   
+                    return res.status(200).send({
+                         message : 'Verification code is sent',
+                         email 
+                    })
+                    
+               });
               
-          }
-          
      } catch (error) {
-          res.status(500).send({message : 'somthing broke!'})
+        return  res.status(500).send({message : 'somthing broke!'})
      }
 }
 const EmailVerification =async(req,res)=>{
@@ -211,19 +270,26 @@ const EmailVerification =async(req,res)=>{
           
           const user = await User.findOne({email})
           if(!user){
-               res.status(404).send({ message : 'email is not found!'})
-          }else if(Date.now() > user.resetpasswordexpiries){
-               res.status(404).send({ message : "this code is expired!"})
-          }else if(user.resetpasswordcode === code){  
-               res.status(200).send({ message : "verification is complited"})     
-          }else{
-               res.status(404).send({ message : "Code is not match!"})   
-          }    
+              return res.status(404).send({ message : 'user is not found!'})
+          }
+          if(Date.now() > user.resetpasswordexpiries){
+             return res.status(404).send({ message : "this code is expired!"})
+          }
+          const isVerified = await bcrypt.compare(code, user.resetpasswordcode)
+          if(!isVerified){  
+              return res.status(404).send({ message : "Code is not match!"})
+          }
+
+          return res.status(200).send({ 
+               message : "verification is complited",
+               success : true
+          })     
+             
      } catch (error) {
-          res.status(500).send({message : 'somthing broke!'})
+         return res.status(500).send({message : 'somthing broke!'})
      }
 }
-const resetPassword =async(req,res)=>{
+const resetPassword = async(req,res)=>{
      try {
           const {email,password} = req.body;
           const user = await User.findOne({email})
@@ -249,5 +315,6 @@ module.exports={
      findUserAndSendEmail,
      EmailVerification,
      resetPassword,
-     tokenRefresh
+     tokenRefresh,
+     userLogout
 }

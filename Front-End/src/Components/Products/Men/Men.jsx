@@ -16,7 +16,6 @@ const Men = () => {
   const {category} = useParams();
   const [mensData,setMensData]= useState([])
   const [loading,setLoading] = useState(true)
-  const [favorites,setFavorites]=useState([])
 
   useEffect(()=>{
     if(category.length === 3){
@@ -38,15 +37,6 @@ const Men = () => {
           console.log(err)
       })
     }
-    axios.get('http://localhost:8000/get-to-favourite',{
-      withCredentials:true
-    }).then((res)=>{
-          // console.log(res.data)
-          const favorite = res.data.products;
-          favorite.map(item => setFavorites((prev)=> [...prev,item._id]))
-    }).catch((err)=>{
-          console.log(err)
-    })
   },[category])
   if(loading){
     return <h1>loading....</h1>
@@ -61,7 +51,7 @@ const Men = () => {
       <div className='mens-shop'>
       {!loading && mensData.length <= 0 && <p>{''}</p>}
       {!loading && mensData.length >= 0 &&  mensData.map((item)=>{
-        return <OutlateProduct key={uuidv4()} item={item} favorites={favorites}/>
+        return <OutlateProduct key={uuidv4()} item={item}/>
       })}
       </div>
     </div>

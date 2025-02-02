@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const userAuthentication = async(req,res,next)=>{
      const {accesstoken} =req.cookies;
+     
      try {
           if(!accesstoken){
                return res.send('token is not found')

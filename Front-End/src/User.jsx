@@ -9,7 +9,6 @@ const User = () => {
      useEffect(()=>{
            // carts count
            if(isLoggedIn){
-               console.log('hello')
                axios.get("http://localhost:8000/cart/count", {
                     withCredentials: true,
                   }).then((res)=>{
@@ -30,16 +29,16 @@ const User = () => {
                   }) 
           }
 
-          if(isLoggedIn){
-               axios.get('http://localhost:8000/get-to-favourite',{
-                    withCredentials:true
-                  }).then((res)=>{
-                         const favoriteIds = res.data.products.map(item => item._id);
-                         dispatch(setFavoritesProducts(favoriteIds))
-                  }).catch((err)=>{
-                        console.log(err)
-                  })
-          }
+          // if(isLoggedIn){
+          //      axios.get('http://localhost:8000/get-to-favourite',{
+          //           withCredentials:true
+          //         }).then((res)=>{
+          //                const favoriteIds = res.data.products.map(item => item._id);
+          //                dispatch(setFavoritesProducts(favoriteIds))
+          //         }).catch((err)=>{
+          //               console.log(err)
+          //         })
+          // }
      },[])
   return (
    <></>

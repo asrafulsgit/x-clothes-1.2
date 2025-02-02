@@ -16,7 +16,7 @@ const Kids = () => {
   const {category}= useParams()
   const [kidsData,setKidsData]= useState([])
   const [loading,setLoading] = useState(true)
-  const [favorites,setFavorites]=useState([])
+  
 
   useEffect(()=>{
     if(category.length === 3){
@@ -38,15 +38,6 @@ const Kids = () => {
         console.log(err)
       })
     }
-    axios.get('http://localhost:8000/get-to-favourite',{
-      withCredentials:true
-    }).then((res)=>{
-          // console.log(res.data)
-          const favorite = res.data.products;
-          favorite.map(item => setFavorites((prev)=> [...prev,item._id]))
-    }).catch((err)=>{
-          console.log(err)
-    })
   },[category])
   
   if(loading){
@@ -65,7 +56,7 @@ const Kids = () => {
         <div className='kids-shop'>
         {!loading &&  kidsData.length <= 0 && <p>{''}</p>}
         {!loading && kidsData.length >= 0 &&  kidsData.map((item)=>{
-            return <OutlateProduct key={uuidv4()} item={item} favorites={favorites}/>
+            return <OutlateProduct key={uuidv4()} item={item}/>
         })}
         </div>
       </div>

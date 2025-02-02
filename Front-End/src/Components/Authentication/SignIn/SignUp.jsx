@@ -24,7 +24,6 @@ const SignUp = () => {
  const handleChange=(e)=>{
      const {name, value} = e.target;
      setUser({...user, [name]:value})
-     setMessage('')
  }
 
   const handleSubmit=(e)=>{
@@ -34,7 +33,6 @@ const SignUp = () => {
           navigate('/login')
           setUser(initialUser)
      }).catch((err)=>{         
-          dispatch(setMessage(err.response.data.message))
           setErrorField(err.response.data.field)
      })
   }
@@ -61,7 +59,7 @@ const SignUp = () => {
                          <div className='password-field'>
                               <input type={seePassword ? 'text' : 'password'} id='password' name='password'
                               onChange={handleChange} 
-                              value={user.password} required/>
+                              value={user.password} required autoComplete='off'/>
                               {user.password.length > 0 && 
                               <button type='button' onClick={(e)=>{
                                    e.preventDefault()
