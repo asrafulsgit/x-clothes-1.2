@@ -49,11 +49,8 @@
      /* border: 1px solid; */
 /* }  */
 
-.info-left .thumb-image img{
-     padding: 0.5rem;
-     width: 420px;
-     height: 490px;
-     object-fit: contain;
+.info-left .thumb-image {
+   border: 1px solid;
 }
 
 .info-right{

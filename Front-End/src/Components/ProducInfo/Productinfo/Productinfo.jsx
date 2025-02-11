@@ -1,8 +1,6 @@
-import React, { memo, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 
-// magnifier
-import ReactImageMagnify from "react-image-magnify";
-import ImageMagnify from "./ImageMagnify";
+
 
 import "./Productinfo.css";
 import axios from "axios";
@@ -36,6 +34,7 @@ const Productinfo = React.memo(() => {
         setMessage(err.response.data.message);
       });
   }, [id]);
+
   const handleSize = (e) => {
     setSelectedSize(e.target.value);
   };
@@ -69,18 +68,7 @@ const Productinfo = React.memo(() => {
                 })}
               </div>
               <div className="thumb-image">
-              <ImageMagnify
-                  smallImage={{
-                    alt: "Wristwatch by Ted Baker London",
-                    isFluidWidth: true,
-                    src: thumbImage,
-                  }}
-                  largeImage={{
-                    src: thumbImage,
-                    width: 1800,
-                    height: 2167,
-                  }}
-              />
+             
               </div>
             </div>
             <div className="info-right">
