@@ -4,24 +4,20 @@ import {createSlice} from '@reduxjs/toolkit'
 const userSlice = createSlice({
      name : 'user',
      initialState : {
-          secondaryNav : false,
           favorites    : 0,
           carts        : 0,
-          favoritesProducts: [],
+          favoritesProductsIds: [],
           isLoggedIn  : false,
           loading      : true,
           isReadyForEmailVerify : false,     // for forgot password
           email : ''                         // for forgot password
      },
      reducers : {
-          setSecondaryNav (state,action){
-               state.secondaryNav = action.payload;
-          },
           setFavorites(state,action){
                state.favorites = action.payload;
           },
-          setFavoritesProducts(state,action){
-               state.favoritesProducts = action.payload;
+          setFavoritesProductsIds(state,action){
+               state.favoritesProductsIds = action.payload;
           },
           setCarts(state,action){
                state.carts = action.payload;
@@ -43,6 +39,6 @@ const userSlice = createSlice({
      }
 })
 
-export const {setFavorites,setFavoritesProducts,setCarts,setIsLoggedIn,
-     setLoading,setSecondaryNav,setIsReadyForEmailVerify,setEmail} = userSlice.actions;
+export const {setFavorites,setFavoritesProductsIds,setCarts,setIsLoggedIn,
+     setLoading,setIsReadyForEmailVerify,setEmail} = userSlice.actions;
 export default userSlice.reducer;

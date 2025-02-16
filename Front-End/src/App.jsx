@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo, useState } from 'react'
 import Home from './Components/App/Home/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ScrollProblem from './Components/Others/ScrollProblem'
@@ -35,67 +35,74 @@ import Winter from './Components/Products/Winter/Winter'
 import Productinfo from './Components/ProducInfo/Productinfo/Productinfo'
 import Page_Load from './Page_Load'
 import User from './User'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setIsLoggedIn} from './Components/Authentication/Controllers/UserSlice'
 // import Shop from './Components/Shops/Shop'
 
 const App = () => {
-  const {isLoggedIn,loading} = useSelector(state => state.authInfo)
+  const dispatch = useDispatch()
+  const [loading,setLoading]=useState(true)
+  const checkUserCreadentials = (value) => {
+    dispatch(setIsLoggedIn(value))
+    setLoading(false)
+  }
   return (
     <BrowserRouter >
-      <Page_Load /> 
-      {isLoggedIn && <User />} 
+      <Page_Load checkUserCreadentials={checkUserCreadentials} />
+      {!loading && <User />}
       <ScrollProblem />
-    <Routes>
-        // public Route
-        <Route path='/' element={<Home />}/>
-        <Route path='/men/:category' element={<Men />}/>
-        <Route path='/women/:category' element={<Women />}/>
-        <Route path='/kids/:category' element={<Kids />}/>
-        <Route path='/winter/:category' element={<Winter />} />
-        <Route path='/product/:id' element={<Productinfo />}/>
-        {/* <Route path='/products/shop' element={<Shop />}/>   */}
+      {!loading &&
+        <Routes>
+          // public Route
+          <Route path='/' element={<Home />} />
+          <Route path='/men/:category' element={<Men />} />
+          <Route path='/women/:category' element={<Women />} />
+          <Route path='/kids/:category' element={<Kids />} />
+          <Route path='/winter/:category' element={<Winter />} />
+          <Route path='/product/:id' element={<Productinfo />} />
+          {/* <Route path='/products/shop' element={<Shop />}/>   */}
 
-        // authenticator Route
-       
+    // authenticator Route
+
           <Route element={<Protect_login />}>
-            <Route path='/login' element={<Login />}/>
-            <Route path='/signup' element={<SignUp />}/>
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
             <Route path='/find-user' element={<ForgotPass />} />
           </Route>
 
-          // forgot-password
+      // forgot-password
           <Route element={<VerifyEmail />}>
             <Route path='/eamil-verication' element={<EmailVerification />} />
           </Route>
           {/* <Route element={<IsVerified />}>
-             <Route path='/reset-password' element={<ResetPassword />} />
-          </Route>  */}
-        
-        //Private Route   
-        //only authorized person can access this pages
-        <Route element={<Protect />}>
-          <Route path='/cart' element={<Cart />}/>
-          <Route path='/profile' element={<Profile />}/>
-          <Route path='/favourite' element={<Favourite />}/>
-        </Route>
+         <Route path='/reset-password' element={<ResetPassword />} />
+      </Route>  */}
 
-        // admin Route
-        
-          <Route path='/admin/add-product' element={<AddProduct />}/>
+    //Private Route
+          //only authorized person can access this pages
+          <Route element={<Protect />}>
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/favourite' element={<Favourite />} />
+          </Route>
+
+    // admin Route
+
+          <Route path='/admin/add-product' element={<AddProduct />} />
           <Route path='/admin/all-product' element={<AllProducts />} />
           <Route path='/admin/dashboard' element={<DashBoard />} />
           <Route path='/admin/update-product/:id' element={<UpdateProduct />} />
- 
 
-        // Others Route
-        <Route path='/aboutus' element={<AboutUs />} />
-        <Route path='/return-policy' element={<ReturnPolicy />} />
-        <Route path='/terms-and-conditions' element={<TermsCondition />} />
-        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-        <Route path='/faq' element={<FAQ />} />
 
-    </Routes>
-   </BrowserRouter>
+    // Others Route
+          <Route path='/aboutus' element={<AboutUs />} />
+          <Route path='/return-policy' element={<ReturnPolicy />} />
+          <Route path='/terms-and-conditions' element={<TermsCondition />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/faq' element={<FAQ />} />
+
+        </Routes>}
+    </BrowserRouter>
   )
 }
 

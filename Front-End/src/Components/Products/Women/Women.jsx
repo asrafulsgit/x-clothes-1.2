@@ -13,11 +13,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 const Women = () => {
-
+const {favoritesProductsIds} = useSelector(state => state.authInfo)
   const {category}= useParams()
   const [loading,setLoading] = useState(true)
   const [womensData,setWomensData]= useState([])
-  
+  console.log('women')
   useEffect(()=>{
     if(category.length === 3){
       axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : category})
@@ -54,7 +54,7 @@ const Women = () => {
           <div className='womens-shop'>
           {!loading && womensData.length <= 0 && <p>{''}</p>}
               {!loading && womensData.length >= 0 &&  womensData.map((item)=>{
-                return <OutlateProduct key={uuidv4()} item={item}/>
+                return <OutlateProduct key={uuidv4()} item={item} favorites={favoritesProductsIds}/>
               })}
           </div>
       </div>

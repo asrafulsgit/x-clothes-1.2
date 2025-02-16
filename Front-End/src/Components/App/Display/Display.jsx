@@ -7,7 +7,7 @@ import socket from '../../../../socket';
 
 const Display=()=> {
   useEffect(()=>{
-
+    
     // axios.get('http://localhost:8000/access/token/refresh',{
     //   withCredentials : true
     // }).then((res)=>{

@@ -1,6 +1,5 @@
 const {Server}= require('socket.io')
 
-
 let io ; 
 
 const initSocket =(server)=>{

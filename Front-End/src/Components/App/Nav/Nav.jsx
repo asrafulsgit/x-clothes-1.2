@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,memo } from 'react'
 import axios from 'axios'
 import './Nav.css'
-
+import MensNav from './MensNav'
+import WomensNav  from './WomensNav'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import {setSecondaryNav } from '../../Authentication/Controllers/UserSlice'
-import MensNav from './MensNav'
-import WomensNav from './WomensNav'
-import KidsNav from './KidsNav'
-import WinterNav from './WinterNav'
 import socket from '../../../../socket'
-import { setCarts,setFavorites } from '../../Authentication/Controllers/UserSlice'
-const Nav = () => {
-  const dispatch = useDispatch();
-  const {loading,secondaryNav,isLoggedIn,carts,favorites} = useSelector(state => state.authInfo)
+import { setCarts,setFavorites} from '../../Authentication/Controllers/UserSlice'
 
+const Nav = memo(() => {
+  const dispatch = useDispatch();
+  const {loading,isLoggedIn,carts,favorites} = useSelector(state => state.authInfo)
   // nav settings
   const [navbg, setNavbg]= useState(false)
-  
+  const [subNav,setSubNav]=useState(false)
   useEffect(()=>{
       window.addEventListener('scroll', ()=>{
         window.scrollY > 50 ? setNavbg(true) : setNavbg(false);
@@ -26,20 +22,24 @@ const Nav = () => {
       socket.on('carts',(data)=> dispatch(setCarts(data)))
       socket.on('favourites',(data)=> dispatch(setFavorites(data)))
 
-      
   },[])
+  
   const [hover,setHover] = useState('')
   const handleMouseHover =(hoverItem)=>{
     setHover(hoverItem)
     setNavbg(true)
-    dispatch(setSecondaryNav(true))
+    setSubNav(true)
   }
   const hanldeLeave =()=>{
-      dispatch(setSecondaryNav(false))
-  }
-  const hanldeClick=()=>{
-    dispatch(setSelectedCategory(''))
-  }
+    setSubNav(false)
+        }
+        // const hanldeClick=()=>{
+        //   dispatch(setSecondaryNav(''))
+        // }
+
+    const subNavClose =(value)=>{
+      setSubNav(value)
+    }
 
   const navLinksData =[
     {
@@ -70,6 +70,7 @@ const Nav = () => {
   return (
     <>
     <header className='nav-page'>  
+         
         <nav className={`nav ${navbg && 'navBg'}`}>
             <NavLink to='/' className='nav-logo'><h1 className='logo'><span>X</span> Clothes</h1></NavLink>   
             <div className="web-pages-nav">
@@ -78,9 +79,10 @@ const Nav = () => {
                     return(
                       <NavLink key={index} 
                       to={path} 
-                      onClick={hanldeClick} 
+                      // onClick={hanldeClick} 
+                      onMouseLeave={hanldeLeave}
                       onMouseOver={()=>handleMouseHover(hover)}
-                      onMouseLeave={hanldeLeave}>{name}</NavLink>
+                      >{name}</NavLink>
                     )
                   })}
             </div>  
@@ -107,21 +109,20 @@ const Nav = () => {
             </div>
         </nav>
         
-
         {/*sub nav */}
-        <div className={`secondary-nav ${secondaryNav && 'secondary-nav-show'}`}
-        onMouseOver={()=>dispatch(setSecondaryNav(true))}
-        onMouseLeave={()=>dispatch(setSecondaryNav(false))}
-        >
-              { hover === 'mens' ? <MensNav />
-              : hover === 'womens' ?   <WomensNav /> 
-              : hover === 'kids'? <KidsNav /> 
-              : hover === 'winter' ? <WinterNav /> 
-              : '' }     
-        </div>
+        <div className={`secondary-nav ${subNav && 'secondary-nav-show'}`}
+     onMouseOver={()=> setSubNav(true)}
+     onMouseLeave={()=> setSubNav(false)}
+     >
+           { hover === 'mens' ? <MensNav  subNavClose={subNavClose}/>
+           : hover === 'womens' ?   <WomensNav subNavClose={subNavClose} /> 
+          //  : hover === 'kids'? <KidsNav /> 
+          //  : hover === 'winter' ? <WinterNav /> 
+           : '' }     
+     </div>
     </header>
     </>
   )
-}
+})
 
 export default Nav

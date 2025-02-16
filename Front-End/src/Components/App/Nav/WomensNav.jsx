@@ -1,14 +1,14 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setSecondaryNav } from '../../Authentication/Controllers/UserSlice';
+
 import image from '../../../assets/nav-image/womens.jpg'
 
-const WomensNav = () => {
+const WomensNav = (subNavClose) => {
   const dispatch = useDispatch()
   const hanldeClick =()=>{
-     dispatch(setSecondaryNav(false))
-  }
+    subNavClose(false)
+ }
      const womensCategories =[
           {
             subcategory : '201',

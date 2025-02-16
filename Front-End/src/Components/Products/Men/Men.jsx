@@ -12,11 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 const Men = () => {
-
+  
+  const {favoritesProductsIds} = useSelector(state => state.authInfo)
   const {category} = useParams();
   const [mensData,setMensData]= useState([])
   const [loading,setLoading] = useState(true)
-
+  
   useEffect(()=>{
     if(category.length === 3){
       axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : category})
@@ -38,9 +39,11 @@ const Men = () => {
       })
     }
   },[category])
+
   if(loading){
     return <h1>loading....</h1>
   }
+   
   return (
     <div className='mens-page'>
     <Nav />
@@ -51,11 +54,12 @@ const Men = () => {
       <div className='mens-shop'>
       {!loading && mensData.length <= 0 && <p>{''}</p>}
       {!loading && mensData.length >= 0 &&  mensData.map((item)=>{
-        return <OutlateProduct key={uuidv4()} item={item}/>
+        return <OutlateProduct key={uuidv4()} item={item} favorites={favoritesProductsIds}/>
       })}
       </div>
     </div>
     <Footer />
+
     
   </div>
   )

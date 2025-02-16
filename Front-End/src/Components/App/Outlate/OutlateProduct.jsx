@@ -1,26 +1,19 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
-
-const OutlateProduct = ({item}) => {
-     const dispatch = useDispatch();
-     const navigate = useNavigate();
+// import {addToFavorite,deleteToFavorite} from '../../Authentication/Controllers/Function'
+const OutlateProduct =({item,favorites}) => { 
      const {_id,brand,price,images} = item;
-     const [isLoading,setIsLoading]= useState(true)
-
-     // const [isFavourite,setIsFavourite]= useState(false)
-     
-     // favorite-btn-loading
-     // const [favoriteLoading,setFavoriteLoading]= useState(false)
-
-     // add-to-card-btn-loading
+     //  console.log('card')
+     // favorite setup
+     const favorite = favorites.includes(_id);
+     const [isFavorite,setIsFavorite]= useState(favorite)
+     const [favoriteLoading,setFavoriteLoading]= useState(false)
+    
+     // cart setup
      const [isAdded,setIsAdded]= useState(false)
 
-     const isFavorite = (productId) => favorites.includes(productId);
-     // useEffect(()=>{
-     //      setIsFavourite(isFavorite(_id))
-     // },[])
      const hanleAddToCart=(id)=>{
           setIsAdded(true)
           const cartInfo = {
@@ -38,57 +31,56 @@ const OutlateProduct = ({item}) => {
           }) 
             
      }
-     // const handleFavourite=(id,isFavorite)=>{
-     //      setFavoriteLoading(true)
-     //           const data ={
-     //                productId : id
-     //           }
-     //           // console.log(isFavourite)
-     //           if(!isFavorite){
-     //                console.log('addd')
-     //                setTimeout(() => {
-     //                     axios.post('http://localhost:8000/add-to-favourite',data,{
-     //                          withCredentials : true
-     //                        })
-     //                        .then((res)=>{
-     //                          //    console.log(res)
-     //                          setIsFavourite(true)
-     //                          console.log('adddeeed')
-     //                          setFavoriteLoading(false)
-     //                        }).catch((err)=>{
-     //                             console.log(err)
-     //                          //    setIsFavourite(false)
-     //                        })
-     //                }, 2000);
-                       
-     //           } 
-     //           if(isFavorite){
-     //                console.log('delete')
-     //                axios.delete(`http://localhost:8000/remove-from-favourite/${id}`,{
-     //                     withCredentials : true
-     //                }                     
-     //                ).then((res)=>{
-     //                     setIsFavourite(false)
-     //                     setFavoriteLoading(false)
-     //                }).catch((err=>{
-     //                //   dispatch(setMessage(err.response.data.message))
-     //                //   setIsFavourite(true)
-     //                }))
-     //           } 
-              
-     // }
+     const handleFavourite=(id,isFavorite)=>{ 
+          // setFavoriteLoading(true)  
+          // // if(!isFavorite){
+          // //      axios.post('http://localhost:8000/add-to-favourite',{productId : id},{
+          // //           withCredentials : true
+          // //      }).then((res)=>{
+          // //           console.log(res)
+          // //           setIsFavorite(true)
+          // //           setTimeout(() => {
+          // //                setFavoriteLoading(false)
+          // //           }, 10000);
+          // //      }).catch((err=>{
+          // //           console.log(err)
+          // //      }))
+          // // }else{
+          // //      console.log('delete')
+          // //      const productId = id;
+          // //      axios.delete(`http://localhost:8000/remove-from-favourite/${productId}`,{
+          // //           withCredentials : true
+          // //      }                     
+          // //      ).then((res)=>{
+          // //           console.log(res)
+          // //           setIsFavorite(false)
+          // //           setFavoriteLoading(false)
+
+          // //      }).catch((err=>{
+          // //           console.log(err)
+          // //           // return true;
+          // //      }))
+          // //      // deleteToFavorite(id)
+          // //      // setFavoriteLoading(false)
+          // // }     
+          // setTimeout(() => {
+          //      setFavoriteLoading(false) 
+          // }, 2000);
+     }
+     // console.log(isFavorite)
+     // console.log(favoriteLoading)
   return (
      <div className="outlate-card">
           <div className="outlate-card-image"> 
-               {/* <button  onClick={()=>handleFavourite(_id)} className='add-to-favourite-btn' >
-                    {favoriteLoading ?  
-                         <div className="loadingio-spinner-rolling-nq4q5u6dq7r ">
-                              <div className="ldio-x2uulkbinbj favorite-spinner">
-                                   <div></div>
-                              </div>
-                         </div>
-                    : <i className={`fa-${isFavourite ? 'solid' : 'regular'} fa-heart`}></i>}  
-               </button>  */}
+               <button  onClick={()=>handleFavourite(_id,isFavorite)} className='add-to-favourite-btn' >
+                    {favoriteLoading ?  <p>loading</p>
+                         // <div className="loadingio-spinner-rolling-nq4q5u6dq7r ">
+                         //      <div className="ldio-x2uulkbinbj favorite-spinner">
+                         //           <div></div>
+                         //      </div>
+                         // </div>
+                    : <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart`}></i>}  
+               </button> 
                <img loading='lazy' className='image' src={images[0]} alt="" />
           </div>
           <div className="outlate-card-footer">
