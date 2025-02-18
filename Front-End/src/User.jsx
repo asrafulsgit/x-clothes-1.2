@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCarts, setFavorites,setFavoritesProductsIds } from './Components/Authentication/Controllers/UserSlice'
 import axios from 'axios'
+import { json } from 'react-router-dom'
 
 const User = () => {
      const {isLoggedIn,loading} = useSelector(state => state.authInfo)
@@ -35,6 +36,7 @@ const User = () => {
                     withCredentials:true
                   }).then((res)=>{
                          const favoriteIds = res.data.products.map(item => item._id);
+                         localStorage.setItem('favorites',JSON.stringify(favoriteIds))
                          dispatch(setFavoritesProductsIds(favoriteIds))
                   }).catch((err)=>{
                         console.log(err)

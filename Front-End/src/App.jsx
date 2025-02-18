@@ -46,14 +46,15 @@ const App = () => {
     dispatch(setIsLoggedIn(value))
     setLoading(false)
   }
+  console.log('app')
   return (
     <BrowserRouter >
       <Page_Load checkUserCreadentials={checkUserCreadentials} />
-      {!loading && <User />}
+      <User />
       <ScrollProblem />
       {!loading &&
         <Routes>
-          // public Route
+          // public Route 
           <Route path='/' element={<Home />} />
           <Route path='/men/:category' element={<Men />} />
           <Route path='/women/:category' element={<Women />} />

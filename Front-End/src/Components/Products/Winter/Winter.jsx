@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
-import './Winter.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import OutlateProduct from '../../App/Outlate/OutlateProduct';
+import './Winter.css'
 import Nav from '../../App/Nav/Nav';
 import Footer from '../../App/Footer/Footer';
 import womensBanner from '../../../assets/banners/winter-banner.png'
-import { useDispatch, useSelector } from 'react-redux';
-
-import { useParams } from 'react-router-dom';
+import Card from '../Card';
 
 const Winter = () => {
   const {category} = useParams()
-  const dispatch = useDispatch()
-  const {selectedCategory,favoritesProducts} = useSelector(state => state.authInfo)
-  const [winterData,setWinterData]= useState([])
   const [loading,setLoading] = useState(true)
+  const [winterData,setWinterData]= useState([])
   useEffect(()=>{
     if(category.length === 3){
       axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : category})
@@ -31,10 +28,10 @@ const Winter = () => {
     if(category === '10233342'){
       axios.post('http://localhost:8000/get-product-by-categoris',{categories : ['120130','230240','330340','420440']})
       .then((res)=>{
-        setLoading(false)
         setWinterData(res.data.products)
+        setLoading(false)
       }).catch((err)=>{
-        dispatch(setMessage(err.response.data.message))
+        console.log(err.response.data.message)
       })
     }
   },[category])
@@ -52,7 +49,7 @@ const Winter = () => {
           <div className='womens-shop'>
               {!loading && winterData.length <= 0 && <p>{''}</p>}
               {!loading && winterData.length >= 0 &&  winterData.map((item)=>{
-                return <OutlateProduct key={uuidv4()} item={item} />
+                return <Card key={uuidv4()} item={item} />
               })}
           </div>
       </div>

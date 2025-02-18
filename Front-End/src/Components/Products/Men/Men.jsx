@@ -3,21 +3,17 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
 
 import './Men.css'
-
-import OutlateProduct from '../../App/Outlate/OutlateProduct';
 import Nav from '../../App/Nav/Nav';
 import Footer from '../../App/Footer/Footer';
 import mensBanner from '../../../assets/banners/mens-banner.jpg'
-import { useDispatch, useSelector } from 'react-redux';
+
 import { useParams } from 'react-router-dom';
+import Card from '../Card';
 
 const Men = () => {
-  
-  const {favoritesProductsIds} = useSelector(state => state.authInfo)
   const {category} = useParams();
-  const [mensData,setMensData]= useState([])
   const [loading,setLoading] = useState(true)
-  
+  const [mensData,setMensData]= useState([])
   useEffect(()=>{
     if(category.length === 3){
       axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : category})
@@ -43,6 +39,7 @@ const Men = () => {
   if(loading){
     return <h1>loading....</h1>
   }
+  
    
   return (
     <div className='mens-page'>
@@ -54,7 +51,7 @@ const Men = () => {
       <div className='mens-shop'>
       {!loading && mensData.length <= 0 && <p>{''}</p>}
       {!loading && mensData.length >= 0 &&  mensData.map((item)=>{
-        return <OutlateProduct key={uuidv4()} item={item} favorites={favoritesProductsIds}/>
+        return <Card key={uuidv4()} item={item} />
       })}
       </div>
     </div>

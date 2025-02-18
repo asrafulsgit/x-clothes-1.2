@@ -9,7 +9,6 @@ import OutlateProduct from '../OutlateProduct'
 const BestSellers = () => {
      const [message, setMessage]= useState('')
      const [bestSellers,setBestSellers]= useState([])
-     const [favorites,setFavorites]= useState([])
      useEffect(()=>{
           axios.post('http://localhost:8000/get-product-by-categoris',{categories : ['120130','230240','330340','420440']})
           .then((res)=>{
@@ -17,16 +16,6 @@ const BestSellers = () => {
                setBestSellers(products)
           }).catch((err)=>{
                dispatch(setMessage(err.response.data.message))
-          })
-
-          axios.get('http://localhost:8000/get-to-favourite',{
-               withCredentials:true
-          }).then((res)=>{
-               // console.log(res.data)
-               const favorite = res.data.products;
-               favorite.map(item => setFavorites((prev)=> [...prev,item._id]))
-          }).catch((err)=>{
-               console.log(err)
           })
      },[])
      return (
@@ -43,7 +32,7 @@ const BestSellers = () => {
           <div className='out-late-item'>
                {bestSellers.length <=0 ? <p>{message}</p> :
                bestSellers.map((item)=>{
-               return <OutlateProduct key={uuidv4()} item={item} favorites={favorites}/>
+               return <OutlateProduct key={uuidv4()} item={item} />
                })}
           </div>   
      </div>

@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
-
 import './Women.css'
-// import { womens } from '../../../allProductDetails/allProduct'
-import OutlateProduct from '../../App/Outlate/OutlateProduct';
 import Nav from '../../App/Nav/Nav';
 import Footer from '../../App/Footer/Footer';
 import womensBanner from '../../../assets/banners/womens-banner.webp'
-import { useDispatch, useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 
 import { useParams } from 'react-router-dom';
+import Card from '../Card';
 
-const Women = () => {
-const {favoritesProductsIds} = useSelector(state => state.authInfo)
+const Women =() => {
   const {category}= useParams()
   const [loading,setLoading] = useState(true)
   const [womensData,setWomensData]= useState([])
@@ -54,7 +51,7 @@ const {favoritesProductsIds} = useSelector(state => state.authInfo)
           <div className='womens-shop'>
           {!loading && womensData.length <= 0 && <p>{''}</p>}
               {!loading && womensData.length >= 0 &&  womensData.map((item)=>{
-                return <OutlateProduct key={uuidv4()} item={item} favorites={favoritesProductsIds}/>
+                return <Card key={uuidv4()} item={item} />
               })}
           </div>
       </div>

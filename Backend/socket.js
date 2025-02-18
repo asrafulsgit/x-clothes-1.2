@@ -1,5 +1,5 @@
 const {Server}= require('socket.io')
-
+const Favorite = require('./Models/addToFavourite.model')
 let io ; 
 
 const initSocket =(server)=>{
