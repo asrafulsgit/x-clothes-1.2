@@ -3,7 +3,7 @@ import './Display.css';
 import displayImage3 from '../../../assets/display/display-07.png'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import socket from '../../../../socket';
+import socket from '../../../socket';
 
 const Display=()=> {
   useEffect(()=>{

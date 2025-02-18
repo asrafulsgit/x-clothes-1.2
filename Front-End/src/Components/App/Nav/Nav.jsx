@@ -6,7 +6,7 @@ import KidsNav  from './KidsNav'
 import WinterNav  from './WomensNav'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import socket from '../../../../socket'
+import socket from '../../../socket'
 import { setCarts,setFavorites} from '../../Authentication/Controllers/UserSlice'
 
 const Nav = memo(() => {

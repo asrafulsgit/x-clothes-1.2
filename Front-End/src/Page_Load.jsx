@@ -7,7 +7,7 @@ const Page_Load = ({checkUserCreadentials}) => {
      }
      useEffect(()=>{
           try {
-               axios.get('http://localhost:8000/access/token/refresh',{
+               axios.get(`${import.meta.env.VITE_BACKEND_URL}/access/token/refresh`,{
                  withCredentials : true
               }).then((res)=>{
                //   console.log(res)

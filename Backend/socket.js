@@ -5,9 +5,9 @@ let io ;
 const initSocket =(server)=>{
      io = new Server(server, {
           cors: {
-            origin: "http://localhost:5173",
+            origin: process.env.FRONTEND_URL,
             credentials: true, 
-            methods: ["GET", "POST"], 
+            methods: ["GET", "POST","DELETE","PUT"], 
           },
         });
         io.use((socket,next)=>{

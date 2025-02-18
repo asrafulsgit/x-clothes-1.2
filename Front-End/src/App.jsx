@@ -48,6 +48,7 @@ const App = () => {
     dispatch(setIsLoggedIn(value))
     setLoading(false)
   }
+  
   return (
     <BrowserRouter >
       <Page_Load checkUserCreadentials={checkUserCreadentials} />
