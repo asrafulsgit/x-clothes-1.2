@@ -3,15 +3,20 @@ import axios from 'axios'
 import './ResetPassword.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { isEmail,isVerify,setEmail } from '../../Controllers/UserSlice'
+import {setEmail, setEmailVerificationCode, setIsReadyForEmailVerify, setIsReadyForResetPassword } from '../../Controllers/UserSlice'
 
 const ResetPassword = () => {
      const navigate = useNavigate()
      const dispatch = useDispatch()
      const [message,setMessage] =useState('')
-     const state = useSelector((state)=> state.authInfo)
+     const {email,emailVerficationCode} = useSelector((state)=> state.authInfo)
      const [resetInfo, setResetInfo]= useState(
-          {email:state.setEmail, password : '', rePassword : ''}
+          { 
+            email:email, 
+            code : emailVerficationCode,
+            password : '', 
+            rePassword : ''
+          }
      )
      const handleChange=(e)=>{
           const {name,value}= e.target;
@@ -25,15 +30,17 @@ const ResetPassword = () => {
                axios.put('http://localhost:8000/reset-password',resetInfo)
                .then((res)=>{
                     navigate('/login')
-                    dispatch(setEmail(false))
-                    dispatch(isVerify(false))
-                    dispatch(isEmail(''))
+                    dispatch(setEmail(''))
+                    dispatch(setEmailVerificationCode(''))
+                    dispatch(setIsReadyForResetPassword(false))
+                    dispatch(setIsReadyForEmailVerify(false))
+                    dispatch(setEmail(''))
                })
                .catch((err)=>{
                     setMessage(err.response.data.message)
                })
           }else{
-               setMessage('password is not match!')
+               setMessage('Password is not match!')
           }
      }
 

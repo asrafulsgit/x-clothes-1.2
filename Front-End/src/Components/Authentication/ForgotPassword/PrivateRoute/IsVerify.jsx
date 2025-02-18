@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const IsVerified = () => {
-  const {isVerify} = useSelector((state)=> state.authInfo)
+  const {isReadyForResetPassword} = useSelector((state)=> state.authInfo)
   return (
-    isVerify ? <Outlet /> : <Navigate to='/login'/>
+    isReadyForResetPassword ? <Outlet /> : <Navigate to='/login'/>
   )
 }
 

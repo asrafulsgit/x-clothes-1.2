@@ -5,15 +5,13 @@ import './SignUp.css'
 import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../../App/Nav/Nav'
 import Footer from '../../App/Footer/Footer'
-import { useDispatch, useSelector } from 'react-redux'
 
 
 const SignUp = () => {
-     const dispatch = useDispatch()
-     const {message}= 'hello'
-  const navigate = useNavigate()
-  const [seePassword, setSeePassword] = useState(false)
-  const [errorField,setErrorField] = useState('')
+     const [message,setMessage]= useState([])
+     const [errorField,setErrorField] = useState('')
+     const navigate = useNavigate()
+     const [seePassword, setSeePassword] = useState(false)
   const initialUser = {
      name : '',
      email : '',
@@ -32,8 +30,10 @@ const SignUp = () => {
      .then((res)=>{
           navigate('/login')
           setUser(initialUser)
-     }).catch((err)=>{         
+     }).catch((err)=>{ 
+          console.log(err)        
           setErrorField(err.response.data.field)
+          setMessage(err.response.data.message)
      })
   }
   return (

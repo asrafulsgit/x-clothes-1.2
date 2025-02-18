@@ -4,10 +4,8 @@ import './Login.css'
 import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../../App/Nav/Nav'
 import Footer from '../../App/Footer/Footer'
-import { useDispatch, useSelector } from 'react-redux'
 const Login = () => {
-
-     const dispatch = useDispatch()
+     const [message,setMessage]=useState('')
      const [errorField,setErrorField] = useState('')
      // login settings
      const navigate = useNavigate()
@@ -23,17 +21,21 @@ const Login = () => {
      }
      const handleSubmit =(e)=>{
           e.preventDefault();
+          if(user.password.length < 6){
+               setMessage('password Must be 6 digits!')
+               setErrorField('password')
+               return;
+          }
           // login 
                axios.post('http://localhost:8000/login',user,{
                     withCredentials : true
                })
                .then((res)=>{
-                    localStorage.setItem('token',res.data)
-                    localStorage.setItem('isLoggedIn',true)
                     navigate('/')    
                     window.location.reload()
                }).catch((err)=>{
                     console.log(err)
+                    setMessage(err.response.data.message)
                     setErrorField(err.response.data.field)
                })  
      }
@@ -43,7 +45,7 @@ const Login = () => {
      }
   return (
      <>
-     {/* <Nav /> */}
+     <Nav />
     <div className='login-section'>
        <form onSubmit={handleSubmit}>
           <div className='email-fild'>

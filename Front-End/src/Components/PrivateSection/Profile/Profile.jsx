@@ -24,6 +24,7 @@ const Profile = () => {
     axios.get('http://localhost:8000/user-logout',{
       withCredentials : true
     }).then((res)=>{ 
+      localStorage.removeItem('favorites')
       navigate('/login')
       window.location.reload()
     }).catch((err)=>{

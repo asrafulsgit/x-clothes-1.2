@@ -1,11 +1,9 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import image from '../../../assets/nav-image/womens.jpg'
 
 const WomensNav = (subNavClose) => {
-  const dispatch = useDispatch()
   const hanldeClick =()=>{
     subNavClose(false)
  }

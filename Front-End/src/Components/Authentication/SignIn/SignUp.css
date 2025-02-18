@@ -20,7 +20,7 @@
 }
 .message{
      font-family: var(--font-family2);
-     font-size: 1rem;
+     font-size: 14px;
      color:var(--color-4) ;
 }
 .sing-up-section form{

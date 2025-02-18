@@ -7,6 +7,7 @@ import Footer from '../../../App/Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useNavigate } from 'react-router-dom'
+import { setEmailVerificationCode, setIsReadyForResetPassword } from '../../Controllers/UserSlice'
 
 const EmailVerification = () => {
      const dispatch = useDispatch()
@@ -18,18 +19,18 @@ const EmailVerification = () => {
      const [verificationInfo, setVerificationInfo]= useState({email:email,code : ''})
      const handleChange =(e)=>{
           const {value} =e.target;
+          console.log(value)
           setVerificationInfo({...verificationInfo,code: value})
           
      }
-     console.log(verificationInfo)
      const handleSubmit=(e)=>{
           e.preventDefault()
           if(verificationInfo.code.length === 6){
                axios.post('http://localhost:8000/forgot-password-email-verification',verificationInfo)
                .then((res)=>{
-                    console.log(res)
-                    // dispatch(isVerify(true))
-                    // navigate('/reset-password')
+                    dispatch(setEmailVerificationCode(verificationInfo.code))
+                    dispatch(setIsReadyForResetPassword(true))
+                    navigate('/reset-password')
                }).catch((err)=>{
                     setMessage(err.response.data.message)
                })
@@ -38,17 +39,15 @@ const EmailVerification = () => {
           }
      }
      const handleResend =()=>{
-          // setIsLoading(true)
-          // axios.post('http://localhost:8000/forgot-password-email',{email : setEmail})
-          // .then((res)=>{
-          //      setIsLoading(false)
-          //      setMessage(res.data.message)
-          // }).catch((err)=>{
-          //      setMessage(err.response.data.message)
-          // })
-     }
-     
-     
+          setIsLoading(true)
+          axios.post('http://localhost:8000/forgot-password-email',{email})
+          .then((res)=>{
+               setIsLoading(false)
+               setMessage(res.data.message)
+          }).catch((err)=>{
+               setMessage(err.response.data.message)
+          })
+     }  
   return (
     <div className='email-verification-page'>
           <Nav />

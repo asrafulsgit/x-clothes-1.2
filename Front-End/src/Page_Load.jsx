@@ -13,8 +13,9 @@ const Page_Load = ({checkUserCreadentials}) => {
                //   console.log(res)
                setCreadentials(true)
                }).catch((err)=>{
-                    console.log(err)
+                    localStorage.removeItem('favorites')
                     setCreadentials(false)
+
                })  
              } catch (error) {
                console.error('the error is', error)

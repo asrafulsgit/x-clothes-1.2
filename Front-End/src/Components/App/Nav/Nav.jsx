@@ -1,8 +1,9 @@
 import React, { useEffect, useState,memo } from 'react'
-import axios from 'axios'
 import './Nav.css'
 import MensNav from './MensNav'
 import WomensNav  from './WomensNav'
+import KidsNav  from './KidsNav'
+import WinterNav  from './WomensNav'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import socket from '../../../../socket'
@@ -10,7 +11,7 @@ import { setCarts,setFavorites} from '../../Authentication/Controllers/UserSlice
 
 const Nav = memo(() => {
   const dispatch = useDispatch();
-  const {loading,isLoggedIn,carts,favorites} = useSelector(state => state.authInfo)
+  const {isLoggedIn,carts,favorites} = useSelector(state => state.authInfo)
   // nav settings
   const [navbg, setNavbg]= useState(false)
   const [subNav,setSubNav]=useState(false)
@@ -33,10 +34,6 @@ const Nav = memo(() => {
   const hanldeLeave =()=>{
     setSubNav(false)
         }
-        // const hanldeClick=()=>{
-        //   dispatch(setSecondaryNav(''))
-        // }
-
     const subNavClose =(value)=>{
       setSubNav(value)
     }
@@ -116,8 +113,8 @@ const Nav = memo(() => {
      >
            { hover === 'mens' ? <MensNav  subNavClose={subNavClose}/>
            : hover === 'womens' ?   <WomensNav subNavClose={subNavClose} /> 
-          //  : hover === 'kids'? <KidsNav /> 
-          //  : hover === 'winter' ? <WinterNav /> 
+           : hover === 'kids'? <KidsNav /> 
+           : hover === 'winter' ? <WinterNav /> 
            : '' }     
      </div>
     </header>

@@ -9,6 +9,7 @@ import SignUp from './Components/Authentication/SignIn/SignUp'
 import ForgotPass from './Components/Authentication/ForgotPassword/FindUser/ForgotPass'
 import VerifyEmail from './Components/Authentication/ForgotPassword/PrivateRoute/VerifyEmail'
 import EmailVerification from './Components/Authentication/ForgotPassword/EmailVerification/EmailVerification'
+import ResetPassword from './Components/Authentication/ForgotPassword/ResetPassword/ResetPassword'
 
 import AddProduct from './Components/Admin/Add-product/AddProduct'
 import AllProducts from './Components/Admin/All-product/AllProducts'
@@ -37,6 +38,7 @@ import Page_Load from './Page_Load'
 import User from './User'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIsLoggedIn} from './Components/Authentication/Controllers/UserSlice'
+import IsVerified from './Components/Authentication/ForgotPassword/PrivateRoute/IsVerify'
 // import Shop from './Components/Shops/Shop'
 
 const App = () => {
@@ -46,7 +48,6 @@ const App = () => {
     dispatch(setIsLoggedIn(value))
     setLoading(false)
   }
-  console.log('app')
   return (
     <BrowserRouter >
       <Page_Load checkUserCreadentials={checkUserCreadentials} />
@@ -75,9 +76,9 @@ const App = () => {
           <Route element={<VerifyEmail />}>
             <Route path='/eamil-verication' element={<EmailVerification />} />
           </Route>
-          {/* <Route element={<IsVerified />}>
-         <Route path='/reset-password' element={<ResetPassword />} />
-      </Route>  */}
+          <Route element={<IsVerified />}>
+            <Route path='/reset-password' element={<ResetPassword />} />
+          </Route> 
 
     //Private Route
           //only authorized person can access this pages
