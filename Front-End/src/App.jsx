@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import Home from './Components/App/Home/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ScrollProblem from './Components/Others/ScrollProblem'
@@ -40,7 +40,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setIsLoggedIn} from './Components/Authentication/Controllers/UserSlice'
 import IsVerified from './Components/Authentication/ForgotPassword/PrivateRoute/IsVerify'
 // import Shop from './Components/Shops/Shop'
-
 const App = () => {
   const dispatch = useDispatch()
   const [loading,setLoading]=useState(true)
@@ -48,6 +47,7 @@ const App = () => {
     dispatch(setIsLoggedIn(value))
     setLoading(false)
   }
+  
   
   return (
     <BrowserRouter >

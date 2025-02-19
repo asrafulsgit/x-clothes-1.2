@@ -23,9 +23,6 @@ app.use(cors({
 
 
 
-
-
-
 app.use(userRouter) 
 app.use(productRouter)
 app.use(addToCartRoute)

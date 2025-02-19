@@ -13,6 +13,8 @@ import Card from '../Card';
 import Modal from '../Modal';
 
 
+import apiRequiest from '../../../utils/ApiCall';
+
 const Women =() => {
   const {category}= useParams()
   const [pageLoading,setPageLoading] = useState(true)
@@ -21,7 +23,9 @@ const Women =() => {
   const [modalLoading,setModalLoading]=useState(true)
   const [womensData,setWomensData]= useState([])
   useEffect(()=>{
+    
     if(category.length === 3){
+
       axios.post('http://localhost:8000/get-product-by-subcategory', {subcategory : category})
       .then((res)=>{
         setWomensData(res.data.products)
@@ -32,15 +36,17 @@ const Women =() => {
       })
     }
     if(category === '201230'){
-      axios.post('http://localhost:8000/get-product-by-categoris',{categories : ['201230']})
-      .then((res)=>{
-        setWomensData(res.data.products)
-        setLoading(false)
-      }).catch((err)=>{
-         console.log(err)
-      })
-    }
-    
+      const apiCaling=async()=>{
+        try { 
+          const data = await apiRequiest('post',`/get-product-by-categoris`,{categories : ['201230']}) 
+          setWomensData(data.products)
+          setPageLoading(false)
+        } catch (error) {
+          console.log(error)
+          }
+      }
+      apiCaling()
+    } 
   },[category])
   const handleModal=(modal,product)=>{
     setIsModal(modal)
