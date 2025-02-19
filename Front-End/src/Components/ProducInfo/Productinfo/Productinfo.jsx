@@ -12,9 +12,9 @@ import Footer from "../../App/Footer/Footer";
 
 const Productinfo = React.memo(() => {
   const { id } = useParams();
-  const [product, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [product, setProduct] = useState({});
   const { brand, title, price, sizes, images, description } = product;
   const [thumbImage, setThumbImage] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -22,12 +22,12 @@ const Productinfo = React.memo(() => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:8000/get-one-product", { id })
+      .post(`${import.meta.env.VITE_BACKEND_URL}/get-one-product`, { id })
       .then((res) => {
         const { images } = res.data.product;
-        setIsLoading(false);
-        setProduct(res.data.product);
         setThumbImage(images[0]);
+        setProduct(res.data.product);
+        setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -42,6 +42,10 @@ const Productinfo = React.memo(() => {
     const { value } = e.target;
     setQuantity(value);
   };
+  const handleColor=(e)=>{
+     const color = e.target.value;
+
+  }
   return (
     <div>
       <Nav />
@@ -122,6 +126,13 @@ const Productinfo = React.memo(() => {
                     </select>
                   </div>
                 )}
+              </div>
+              <div className="colors">
+                {product.colors.map((item,index)=>{
+                  return(
+                    <input key={index} onClick={handleColor} type="button" value={item} className="color" />
+                  )
+                })}
               </div>
               <div className="add-to-cart-btns">
                 <button

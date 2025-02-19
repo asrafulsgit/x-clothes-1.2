@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { memo, useState } from 'react'
 import { Link } from 'react-router-dom';
 
-const Card = ({ item }) => {
+const Card = ({ item,handleModal }) => {
      const { _id, brand, price, images } = item; 
        
      const [favorites, setFavorites] = useState(() => {
@@ -50,24 +50,26 @@ const Card = ({ item }) => {
             setFavoriteLoading(false);
           });
       };
-       console.log('card')
+
      // Cart setup
      const [isAdded, setIsAdded] = useState(false);
    
      const handleAddToCart = (id) => {
-       setIsAdded(true);
-       const cartInfo = { productId: id };
-       axios.post('http://localhost:8000/add-to-cart', cartInfo, { withCredentials: true })
-         .then((res) => setIsAdded(false))
-         .catch((err) => {
-           console.log(err);
-           setIsAdded(false);
-         });
+       handleModal(true,item)
+      //  setIsAdded(true);
+      //  const cartInfo = { productId: id };
+      //  axios.post('http://localhost:8000/add-to-cart', cartInfo, { withCredentials: true })
+      //    .then((res) => setIsAdded(false))
+      //    .catch((err) => {
+      //      console.log(err);
+      //      setIsAdded(false);
+      //    });
      };
    
    
    
      return (
+       <>
        <div className="outlate-card">
          <div className="outlate-card-image">
            <button onClick={() => {
@@ -106,6 +108,8 @@ const Card = ({ item }) => {
            </div>
          </div>
        </div>
+       
+      </>
      );
    };
 

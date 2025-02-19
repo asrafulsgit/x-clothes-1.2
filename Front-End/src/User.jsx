@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCarts, setFavorites,setFavoritesProductsIds } from './Components/Authentication/Controllers/UserSlice'
 import axios from 'axios'
-
+import socket from './socket'
 const User = () => {
      const {isLoggedIn,loading} = useSelector(state => state.authInfo)
      const dispatch = useDispatch()

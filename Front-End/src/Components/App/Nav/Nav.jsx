@@ -3,27 +3,27 @@ import './Nav.css'
 import MensNav from './MensNav'
 import WomensNav  from './WomensNav'
 import KidsNav  from './KidsNav'
-import WinterNav  from './WomensNav'
+import WinterNav  from './WinterNav'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import socket from '../../../socket'
 import { setCarts,setFavorites} from '../../Authentication/Controllers/UserSlice'
 
-const Nav = memo(() => {
+const Nav =({navBgSetWithModal}) => {
   const dispatch = useDispatch();
   const {isLoggedIn,carts,favorites} = useSelector(state => state.authInfo)
   // nav settings
   const [navbg, setNavbg]= useState(false)
   const [subNav,setSubNav]=useState(false)
   useEffect(()=>{
+      setNavbg(navBgSetWithModal);
       window.addEventListener('scroll', ()=>{
         window.scrollY > 50 ? setNavbg(true) : setNavbg(false);
       })
-
       socket.on('carts',(data)=> dispatch(setCarts(data)))
       socket.on('favourites',(data)=> dispatch(setFavorites(data)))
 
-  },[])
+  },[navBgSetWithModal])
   
   const [hover,setHover] = useState('')
   const handleMouseHover =(hoverItem)=>{
@@ -33,7 +33,7 @@ const Nav = memo(() => {
   }
   const hanldeLeave =()=>{
     setSubNav(false)
-        }
+    }
     const subNavClose =(value)=>{
       setSubNav(value)
     }
@@ -120,6 +120,6 @@ const Nav = memo(() => {
     </header>
     </>
   )
-})
+}
 
 export default Nav

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setSecondaryNav } from '../../Authentication/Controllers/UserSlice';
 import image from '../../../assets/nav-image/winter.jpg'
 
 const WinterNav = () => {
