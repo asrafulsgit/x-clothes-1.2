@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react'
 import Home from './Components/App/Home/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ScrollProblem from './Components/Others/ScrollProblem'
+
 
 import Login from './Components/Authentication/Login/Login'
 import SignUp from './Components/Authentication/SignIn/SignUp'
@@ -39,6 +39,7 @@ import User from './User'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIsLoggedIn} from './utils/Controllers/UserSlice'
 import IsVerified from './Components/Authentication/ForgotPassword/PrivateRoute/IsVerify'
+import ScrollProblem from './utils/ScrollProblem'
 // import Shop from './Components/Shops/Shop'
 const App = () => {
   const dispatch = useDispatch()

@@ -13,7 +13,7 @@ import Card from '../Card';
 import Modal from '../Modal';
 
 
-import apiRequiest from '../../../utils/ApiCall';
+import {apiRequiest} from '../../../utils/ApiCall';
 
 const Women =() => {
   const {category}= useParams()

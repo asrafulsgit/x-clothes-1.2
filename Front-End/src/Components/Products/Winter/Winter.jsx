@@ -10,7 +10,7 @@ import womensBanner from "../../../assets/banners/winter-banner.png";
 import Card from "../Card";
 import Modal from "../Modal";
 import { categoryCheck, subCategory } from "../../../utils/categoryCheck";
-import apiRequiest from "../../../utils/ApiCall";
+import {apiRequiest} from "../../../utils/ApiCall";
 
 const Winter = () => {
   const { category } = useParams();

@@ -27,7 +27,7 @@ const Login = () => {
                return;
           }
           // login 
-               axios.post('http://localhost:8000/login',user,{
+               axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`,user,{
                     withCredentials : true
                })
                .then((res)=>{

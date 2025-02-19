@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import Card from "../Card";
 import Modal from "../Modal";
 import { categoryCheck, subCategory } from "../../../utils/categoryCheck";
-import apiRequiest from "../../../utils/ApiCall";
+import {apiRequiest} from "../../../utils/ApiCall";
 import { useSelector } from "react-redux";
 
 const Kids = () => {
