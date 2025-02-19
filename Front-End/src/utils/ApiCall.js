@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const  apiRequiest = async(method,route,data=null,headers={}) =>{
      try {
           const res = await axios({
@@ -12,6 +11,7 @@ const  apiRequiest = async(method,route,data=null,headers={}) =>{
           return res.data;
      } catch (error) {
           console.log('API ERROR : ',error)
+          localStorage.setItem('message',error.response?.data?.message)
      }
 }
 

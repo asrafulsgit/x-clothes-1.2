@@ -9,6 +9,7 @@ const userSlice = createSlice({
           favoritesProductsIds: [],
           isLoggedIn  : false,
           loading      : true,
+          message : '',
           isReadyForEmailVerify : false,     // for forgot password
           email : '',                         // for forgot password
           isReadyForResetPassword : false,
@@ -23,6 +24,9 @@ const userSlice = createSlice({
           },
           setCarts(state,action){
                state.carts = action.payload;
+          },
+          setMessage(state,action){
+               state.message = action.payload;
           },
           setIsLoggedIn(state,action){
                state.isLoggedIn = action.payload;
@@ -45,6 +49,6 @@ const userSlice = createSlice({
      }
 })
 
-export const {setFavorites,setFavoritesProductsIds,setCarts,setIsLoggedIn,
+export const {setFavorites,setFavoritesProductsIds,setMessage,setCarts,setIsLoggedIn,
      setLoading,setIsReadyForEmailVerify,setEmail,setIsReadyForResetPassword,setEmailVerificationCode} = userSlice.actions;
 export default userSlice.reducer;

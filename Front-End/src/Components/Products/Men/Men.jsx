@@ -10,42 +10,43 @@ import mensBanner from "../../../assets/banners/mens-banner.jpg";
 import { useParams } from "react-router-dom";
 import Card from "../Card";
 import Modal from "../Modal";
+import { categoryCheck, subCategory } from "../../../utils/categoryCheck";
+import apiRequiest from "../../../utils/ApiCall";
 
 const Men = () => {
   const { category } = useParams();
+  const [message,setMessage]=useState(localStorage.getItem('message')|| 'Product Empty!')
   const [pageLoading, setPageLoading] = useState(true);
   const [isModal, setIsModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
   const [modalLoading, setModalLoading] = useState(true);
   const [mensData, setMensData] = useState([]);
   useEffect(() => {
-    if (category.length === 3) {
-      axios
-        .post("http://localhost:8000/get-product-by-subcategory", {
-          subcategory: category,
-        })
-        .then((res) => {
-          setMensData(res.data.products);
+    const apiCaling = async () => {
+      try {
+        if (subCategory(category)) {
+          const data = await apiRequiest(
+            "post",
+            "/get-product-by-subcategory",
+            { subcategory: category }
+          );
+          setMensData(data?.products);
           setPageLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
+        } else if (categoryCheck(category)) {
+          const data = await apiRequiest("post", `/get-product-by-categoris`, {
+            categories: ["101120"],
+          });
+          setMensData(data?.products);
+          setPageLoading(false)
+        } else {
           setMensData([]);
-        });
-    }
-    if (category === "101120") {
-      axios
-        .post("http://localhost:8000/get-product-by-categoris", {
-          categories: ["101120"],
-        })
-        .then((res) => {
-          setMensData(res.data.products);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+          setPageLoading(false)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    apiCaling();
   }, [category]);
 
   const handleModal = (modal, product) => {
@@ -70,10 +71,8 @@ const Men = () => {
             <p style={{ textAlign: "center" }}>Loaging...</p>
           ) : (
             <div className="mens-shop">
-              {!pageLoading && mensData.length <= 0 && <p>Product Empty!</p>}
-              {!pageLoading &&
-                mensData.length >= 0 &&
-                mensData.map((item) => {
+              {!pageLoading && (mensData?.length <= 0 || !mensData) ? <p>{message}</p>
+              : mensData.map((item) => {
                   return (
                     <Card
                       key={uuidv4()}

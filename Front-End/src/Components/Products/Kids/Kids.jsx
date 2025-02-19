@@ -5,14 +5,16 @@ import "./Kids.css";
 import Nav from "../../App/Nav/Nav";
 import Footer from "../../App/Footer/Footer";
 import kidsBanner from "../../../assets/banners/kids-banner.png";
-import axios from "axios";
-
 import { useParams } from "react-router-dom";
 import Card from "../Card";
 import Modal from "../Modal";
+import { categoryCheck, subCategory } from "../../../utils/categoryCheck";
+import apiRequiest from "../../../utils/ApiCall";
+import { useSelector } from "react-redux";
 
 const Kids = () => {
   const { category } = useParams();
+  const [message,setMessage]=useState(localStorage.getItem('message')|| 'Product Empty!')
   const [pageLoading, setPageLoading] = useState(true);
   const [isModal, setIsModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -20,35 +22,32 @@ const Kids = () => {
   const [kidsData, setKidsData] = useState([]);
 
   useEffect(() => {
-    if (category.length === 3) {
-      axios
-        .post("http://localhost:8000/get-product-by-subcategory", {
-          subcategory: category,
-        })
-        .then((res) => {
-          setKidsData(res.data.products);
+    const apiCaling = async () => {
+      try {
+        if (subCategory(category)) {
+          const data = await apiRequiest(
+            "post",
+            "/get-product-by-subcategory",
+            { subcategory: category }
+          );
+          setKidsData(data?.products);
           setPageLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setWomensData([]);
-        });
-    }
-    if (category === "304014") {
-      axios
-        .post("http://localhost:8000/get-product-by-categoris", {
-          categories: ["301320", "401420"],
-        })
-        .then((res) => {
-          setKidsData(res.data.products);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+        } else if (categoryCheck(category)) {
+          const data = await apiRequiest("post", `/get-product-by-categoris`, {
+            categories: ["301320", "401420"],
+          });
+          setKidsData(data?.products);
+          setPageLoading(false)
+        } else {
+          setKidsData([]);
+          setPageLoading(false)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    apiCaling();
   }, [category]);
-
   const handleModal = (modal, product) => {
     setIsModal(modal);
     setModalInfo(product);
@@ -71,10 +70,8 @@ const Kids = () => {
             <p style={{ textAlign: "center" }}>Loaging...</p>
           ) : (
             <div className="kids-shop">
-              {!pageLoading && womensData.length <= 0 && <p>Product Empty!</p>}
-              {!pageLoading &&
-                womensData.length >= 0 &&
-                womensData.map((item) => {
+              {!pageLoading && (kidsData?.length <= 0 || !kidsData) ? <p>{message}</p>
+              : kidsData?.map((item) => {
                   return (
                     <Card
                       key={uuidv4()}
@@ -82,7 +79,7 @@ const Kids = () => {
                       handleModal={handleModal}
                     />
                   );
-                })}
+              })}
             </div>
           )}
         </div>

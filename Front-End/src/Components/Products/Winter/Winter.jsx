@@ -9,43 +9,47 @@ import Footer from "../../App/Footer/Footer";
 import womensBanner from "../../../assets/banners/winter-banner.png";
 import Card from "../Card";
 import Modal from "../Modal";
+import { categoryCheck, subCategory } from "../../../utils/categoryCheck";
+import apiRequiest from "../../../utils/ApiCall";
 
 const Winter = () => {
   const { category } = useParams();
+    const [message,setMessage]=useState(localStorage.getItem('message')|| 'Product Empty!')
+  
   const [pageLoading, setPageLoading] = useState(true);
   const [isModal, setIsModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
   const [modalLoading, setModalLoading] = useState(true);
   const [winterData, setWinterData] = useState([]);
+
   useEffect(() => {
-    if (category.length === 3) {
-      axios
-        .post("http://localhost:8000/get-product-by-subcategory", {
-          subcategory: category,
-        })
-        .then((res) => {
-          setWinterData(res.data.products);
+    const apiCaling = async () => {
+      try {
+        if (subCategory(category)) {
+          const data = await apiRequiest(
+            "post",
+            "/get-product-by-subcategory",
+            { subcategory: category }
+          );
+          setWinterData(data?.products);
           setPageLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
+        } else if (categoryCheck(category)) {
+          const data = await apiRequiest("post", `/get-product-by-categoris`, {
+            categories: ["120130","230240","330340","420440"],
+          });
+          setWinterData(data?.products);
+          setPageLoading(false)
+        } else {
           setWinterData([]);
-        });
-    }
-    if (category === "10233342") {
-      axios
-        .post("http://localhost:8000/get-product-by-categoris", {
-          categories: ["120130", "230240", "330340", "420440"],
-        })
-        .then((res) => {
-          setWinterData(res.data.products);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err.response.data.message);
-        });
-    }
+          setPageLoading(false)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    apiCaling();
   }, [category]);
+
   const handleModal = (modal, product) => {
     setIsModal(modal);
     setModalInfo(product);
@@ -63,17 +67,13 @@ const Winter = () => {
           <img src={womensBanner} alt="womens-banner" />
         </div>
         <div className="womens-section">
-          <div className="womens-shop">
             {pageLoading ? (
               <p style={{ textAlign: "center" }}>Loaging...</p>
             ) : (
               <div className="womens-shop">
-                {!pageLoading && winterData.length <= 0 && (
-                  <p>Product Empty!</p>
-                )}
-                {!pageLoading &&
-                  winterData.length >= 0 &&
-                  winterData.map((item) => {
+                {!pageLoading && (winterData?.length <= 0 || !winterData) ? (
+                  <p>{message}</p>
+                ): winterData.map((item) => {
                     return (
                       <Card
                         key={uuidv4()}
@@ -84,7 +84,6 @@ const Winter = () => {
                   })}
               </div>
             )}
-          </div>
         </div>
         <Footer />
       </div>

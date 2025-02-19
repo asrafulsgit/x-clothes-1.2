@@ -2,83 +2,14 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import image from '../../../assets/nav-image/winter.jpg'
+import { winterNavData } from '../../../allProductDetails/ProductCategories';
 
 const WinterNav = () => {
   const dispatch = useDispatch()
   const hanldeClick =()=>{
      dispatch(setSecondaryNav(false))
   }
-     const winterNavData ={
-        winterMens : [
-                  {
-                    name : 'Sweater',
-                    subcategory : '120',
-                  },
-                  {
-                    name : 'Hoodie',
-                    subcategory : '121'
-                  },
-                  {
-                    name : 'Blazer',
-                    subcategory : '122'
-                  },
-                  {
-                    name : 'Jacket',
-                    subcategory : '123'
-                  }
-                 
-        ],
-        winterWomens : [
-                {
-                  name : 'Poncho',
-                  subcategory : '231'
-                },
-                {
-                  name : 'Sweater',
-                  subcategory : '232'
-                },
-                {
-                  name : 'Jacket',
-                  subcategory : '233'
-                },
-                {
-                  name : 'Hoodie',
-                  subcategory : '234'
-                },
-                {
-                  name : 'Blazer',
-                  subcategory : '235'
-                },
-        ],
-        winterBoys : [
-              {
-                name : 'Sweater',
-                subcategory : '331'
-              },
-              {
-                name : 'Hoodie',
-                subcategory : '332'
-              },
-              {
-                name : 'Jacket',
-                subcategory : '333'
-              },
-        ],
-        winterGirls : [
-              {
-                name :'Sweater',
-                subcategory : '421' 
-              },
-              {
-                name :'Hoodie',
-                subcategory : '422' 
-              },
-              {
-                name :'Jacket',
-                subcategory : '423' 
-              }
-        ]
-     }
+     
   return (
     <>
       <div className='secondary-nav-item winter-secondary-nav'>

@@ -7,7 +7,7 @@ import Footer from '../../../App/Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useNavigate } from 'react-router-dom'
-import { setEmailVerificationCode, setIsReadyForResetPassword } from '../../Controllers/UserSlice'
+import { setEmailVerificationCode, setIsReadyForResetPassword } from '../../../../utils/Controllers/UserSlice'
 
 const EmailVerification = () => {
      const dispatch = useDispatch()

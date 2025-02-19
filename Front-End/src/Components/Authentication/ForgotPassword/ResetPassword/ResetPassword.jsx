@@ -3,7 +3,7 @@ import axios from 'axios'
 import './ResetPassword.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import {setEmail, setEmailVerificationCode, setIsReadyForEmailVerify, setIsReadyForResetPassword } from '../../Controllers/UserSlice'
+import {setEmail, setEmailVerificationCode, setIsReadyForEmailVerify, setIsReadyForResetPassword } from '../../../../utils/Controllers/UserSlice'
 
 const ResetPassword = () => {
      const navigate = useNavigate()

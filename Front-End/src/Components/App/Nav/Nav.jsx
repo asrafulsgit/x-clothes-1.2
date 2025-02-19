@@ -7,7 +7,8 @@ import WinterNav  from './WinterNav'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import socket from '../../../socket'
-import { setCarts,setFavorites} from '../../Authentication/Controllers/UserSlice'
+import { setCarts,setFavorites} from '../../../utils/Controllers/UserSlice'
+import { navLinksData } from '../../../allProductDetails/ProductCategories'
 
 const Nav =({navBgSetWithModal}) => {
   const dispatch = useDispatch();
@@ -38,32 +39,7 @@ const Nav =({navBgSetWithModal}) => {
       setSubNav(value)
     }
 
-  const navLinksData =[
-    {
-      name : 'Winter',
-      hover : 'winter',
-      path : '/winter/10233342',
-      categories: ['102130','230240','330340','420440']
-    },
-    {
-      name : `Men's`,
-      hover : 'mens',
-      path : '/men/101120',
-      categories: ['101120']
-    },
-    {
-      name : `Women's`,
-      hover : 'womens',
-      path : '/women/201230',
-      categories: ['201230']
-    },
-    {
-      name : `Kid's`,
-      hover : 'kids',
-      path : '/kids/304014',
-      categories: ['301320','401420']
-    }
-  ]
+  
   return (
     <>
     <header className='nav-page'>  

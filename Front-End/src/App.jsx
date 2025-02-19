@@ -37,7 +37,7 @@ import Productinfo from './Components/ProducInfo/Productinfo/Productinfo'
 import Page_Load from './Page_Load'
 import User from './User'
 import { useDispatch, useSelector } from 'react-redux'
-import { setIsLoggedIn} from './Components/Authentication/Controllers/UserSlice'
+import { setIsLoggedIn} from './utils/Controllers/UserSlice'
 import IsVerified from './Components/Authentication/ForgotPassword/PrivateRoute/IsVerify'
 // import Shop from './Components/Shops/Shop'
 const App = () => {
@@ -89,7 +89,7 @@ const App = () => {
             <Route path='/favourite' element={<Favourite />} />
           </Route>
 
-    // admin Route
+          // admin Route
 
           <Route path='/admin/add-product' element={<AddProduct />} />
           <Route path='/admin/all-product' element={<AllProducts />} />

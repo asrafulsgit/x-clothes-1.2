@@ -6,7 +6,7 @@ import Nav from '../../../App/Nav/Nav'
 import Footer from '../../../App/Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setEmail, setIsReadyForEmailVerify } from '../../Controllers/UserSlice'
+import { setEmail, setIsReadyForEmailVerify } from '../../../../utils/Controllers/UserSlice'
 
 const ForgotPass = () => {
      const navigate = useNavigate()
